@@ -1,0 +1,51 @@
+package Ventanas;
+
+/**
+ *
+ * @author fenix
+ */
+public enum Token {
+Linea,
+Comillas,
+Cadena,
+Int,
+Char,
+String,
+Float,
+If,
+Else,
+Switch,
+Case,
+While,
+For,
+Declare,
+False,
+True,
+Igual, 
+Suma, 
+Resta, 
+Multiplicacion, 
+Division,
+Parentesis_a,
+Parentesis_c,
+Llave_a,
+Llave_c,
+Corchete_a,
+Corchete_c,
+Op_Logico,
+Op_Relacional,
+Op_Booleano,
+Asignacion,
+Punto_y_Coma,
+Num_Entero,
+ID,
+func_Longitud,
+func_CaracterEn,
+func_Mostrar,
+func_Entrada,
+func_ValidarCadena,
+func_View,
+ERROR,
+ERR_ID,
+ERR_NUM;
+}

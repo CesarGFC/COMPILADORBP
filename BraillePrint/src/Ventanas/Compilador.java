@@ -82,12 +82,12 @@ public class Compilador extends javax.swing.JFrame{
                 while (wordR <= after) {
                     if (wordR == after || String.valueOf(text.charAt(wordR)).matches("\\W")) {
 
-                        if (text.substring(wordL, wordR).matches("(\\W)*(if|IF|else|ELSE|while|WHILE|"
-                                + "for|FOR")) {
+                        if (text.substring(wordL, wordR).matches("(\\W)*(si|SI|sino|SINO|ciclomientras|CICLOMIENTRAS|"
+                                + "ciclofor|CICLOFOR")) {
                             setCharacterAttributes(wordL, wordR - wordL, red, false);
-                        } else if (text.substring(wordL, wordR).matches("(\\W)*(case|CASE|switch|SWITCH)")) {
+                        } else if (text.substring(wordL, wordR).matches("(\\W)*(caso|CASO|select|SELECT)")) {
                             setCharacterAttributes(wordL, wordR - wordL, green, false);
-                        } else if (text.substring(wordL, wordR).matches("(\\W)*(float|FLOAT|int|INT|string|STRING|true|TRUE|false|FALSE)")) {
+                        } else if (text.substring(wordL, wordR).matches("(\\W)*(flot|FLOT|entero|ENTERO|varcar|VARCAR|verdadero|VERDADERO|falso|FALSO)")) {
                             setCharacterAttributes(wordL, wordR - wordL, orange, false);
                         } else {
                             setCharacterAttributes(wordL, wordR - wordL, Black, false);
@@ -196,7 +196,6 @@ public class Compilador extends javax.swing.JFrame{
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblLexico = new javax.swing.JLabel();
-        lblSintactico = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         MENU = new javax.swing.JTextArea();
@@ -231,18 +230,13 @@ public class Compilador extends javax.swing.JFrame{
         lblLexico.setBackground(new java.awt.Color(230, 248, 254));
         lblLexico.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         lblLexico.setForeground(new java.awt.Color(255, 255, 255));
-        lblLexico.setText("Análisis léxico");
+        lblLexico.setText("Analizar");
         lblLexico.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblLexico.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblLexicoMouseClicked(evt);
             }
         });
-
-        lblSintactico.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblSintactico.setForeground(new java.awt.Color(255, 255, 255));
-        lblSintactico.setText("Análisis sintáctico");
-        lblSintactico.setEnabled(false);
 
         lblTitulo.setBackground(new java.awt.Color(255, 255, 255));
         lblTitulo.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
@@ -363,7 +357,6 @@ public class Compilador extends javax.swing.JFrame{
                                         .addComponent(lblLexico)))
                                 .addContainerGap())
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblSintactico)
                                 .addGap(129, 129, 129))))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -372,7 +365,6 @@ public class Compilador extends javax.swing.JFrame{
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblSintactico)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -611,37 +603,44 @@ public class Compilador extends javax.swing.JFrame{
             }
             
             switch(token){
+                //case Linea:
+                  //  cont++;
+                    // resultado = "Linea: "+ cont + "\n";
+                     //break;
                 case Num_Entero:
                     modelo.addRow(new Object[]{token,lexer.Lexeme}); 
                     break;
                 case Comillas:
                     modelo.addRow(new Object[]{token,lexer.Lexeme}); 
                     break;
-                case Cadena:
+                case Texto:
                     modelo.addRow(new Object[]{token,lexer.Lexeme}); 
                     break;
                 case Op_Logico:
                     modelo.addRow(new Object[]{token,lexer.Lexeme}); 
-                    break;
+                    break;  
                 case Op_Relacional:
                     modelo.addRow(new Object[]{token,lexer.Lexeme}); 
                     break;
                 case Op_Booleano:
                     modelo.addRow(new Object[]{token,lexer.Lexeme}); 
                     break;
+                case Op_Atribucion:
+                    modelo.addRow(new Object[]{token,lexer.Lexeme}); 
+                    break;
                 case Asignacion:
                     modelo.addRow(new Object[]{token,lexer.Lexeme});
                     break;
-                case Suma:
+                case Adicion:
                     modelo.addRow(new Object[]{"Op_Aritmetico","+"});
                     break;
-                case Resta:
+                case Sustraccion:
                     modelo.addRow(new Object[]{"Op_Aritmetico","-"});
                     break;
-                case Multiplicacion:
+                case Producto:
                     modelo.addRow(new Object[]{"Op_Aritmetico","*"});
                     break;
-                case Division:
+                case Cociente:
                     modelo.addRow(new Object[]{"Op_Aritmetico","/"});
                     break;
                 case Parentesis_a:
@@ -662,40 +661,45 @@ public class Compilador extends javax.swing.JFrame{
                 case Llave_c:
                     modelo.addRow(new Object[]{"Signo_Agrupacion","}"});
                     break;
-                case Punto_y_Coma:
+                case Punto_Coma:
                     modelo.addRow(new Object[]{"Signo_Puntuacion",";"});
                     break;
-                case ID:
+                case Identificador:
                     modelo.addRow(new Object[]{"Identificador",lexer.Lexeme}); 
                     break;
-                    case Linea:
+                case CicloMientras:
                     modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
                     break;
-                    case While:
+                case CicloMientras:
                     modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
                     break;
-                    case False:
+                case CicloFor:
                     modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
                     break;
-                    case True:
+                case Declarar:
                     modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
                     break;
-                    case Int:
+                case Entero:
+                    modelo.addRow(new Object[]{"Tipo de dato",lexer.Lexeme}); 
+                    break;
+                case Flotante:
+                    modelo.addRow(new Object[]{"Tipo de dato",lexer.Lexeme}); 
+                    break;
+                case VarCar:
+                    modelo.addRow(new Object[]{"Tipo de dato",lexer.Lexeme}); 
+                    break;
+                case Si:
                     modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
                     break;
-                    case Float:
+                case Sino:
                     modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
                     break;
-                    case If:
-                    modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
-                    break;
-                    case Else:
-                    modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
-                    break;
-                case func_Longitud:case func_CaracterEn:case func_View: case func_Mostrar:case func_Entrada:case func_ValidarCadena:
+                //case Entero:case Caracter:case VarCar:case Flotante:
+                  //  modelo.addRow(new Object[]{"Tipo de dato",token}); 
+                   // break;
+                case func_Ver:case func_ContCarac:case func_Imprimir: case func_ValCad:
                     modelo.addRow(new Object[]{"Funcion",token});
-                    break;
-                    
+                    break;   
                 case ERR_NUM:
                     Errores.append("\nError 02:\tERROR LÉXICO\tLINEA: "+lexer.Line()+
                             "\tCOLUMNA: "+lexer.Column()+"\t["+lexer.yytext()+"] NO ES RECONOCIDO COMO NUMERO VALIDO");
@@ -805,7 +809,6 @@ public class Compilador extends javax.swing.JFrame{
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblLexico;
-    private javax.swing.JLabel lblSintactico;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel lineaErrores;
     private javax.swing.JMenu menuArchivo;

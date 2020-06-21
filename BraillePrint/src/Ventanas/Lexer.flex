@@ -35,8 +35,8 @@ docComent = "/*"{coment}"*/"
 /* Comillas */
  "\"" {Lexeme=yytext(); return Comillas;}
 
-/* Cadena */
- "\"" .* "\""  {Lexeme=yytext(); return Cadena;}
+/* Texto */
+ "\"" .* "\""  {Lexeme=yytext(); return Texto;}
 
 /* Operadores logicos */
 ("&" | "||" | "!") {Lexeme=yytext(); return Op_Logico;}
@@ -47,22 +47,27 @@ docComent = "/*"{coment}"*/"
 /*Operadores Booleanos*/
 ("true" | "TRUE" | "false" | "FALSE") {Lexeme = yytext(); return Op_Booleano;}
 
-(";") {Lexeme=yytext(); return Punto_y_Coma;}
+("\n") {Lexeme=yytext(); return Linea;}
+
+(";") {Lexeme=yytext(); return Punto_Coma;}
 
 /* Operador Suma */
-( \+ ) {Lexeme=yytext(); return Suma;}
+( \+ ) {Lexeme=yytext(); return Adicion;}
 
 /* Operador Resta */
-( "-" ) {Lexeme=yytext(); return Resta;}
+( "-" ) {Lexeme=yytext(); return Sustraccion;}
 
 /* Operador Multiplicacion */
-( "*" ) {Lexeme=yytext(); return Multiplicacion;}
+( "*" ) {Lexeme=yytext(); return Producto;}
 
 /* Operador Division */
-( "/" ) {Lexeme=yytext(); return Division;}
+( "/" ) {Lexeme=yytext(); return Cociente;}
 
 /* Operador Igual */
 ( "=" ) {Lexeme=yytext(); return Asignacion;}
+
+/* Operador Atribucion */
+( "+=" | "=+" | "/=" | "=/" | "*=" | "=*" | "-=" | "=-") {Lexeme=yytext(); return Op_Atribucion;}
 
 /* Parentesis de apertura */
 ( "(" ) {Lexeme=yytext(); return Parentesis_a;}
@@ -86,28 +91,27 @@ docComent = "/*"{coment}"*/"
 ({Sign}?)({D}+) { Lexeme=yytext(); return Num_Entero;}
 (({Sign}?|"-"?)(("."|",")*{D}(("."|",")*{D}*("."|",")*)*)+) { Lexeme=yytext(); return ERR_NUM;}
 
-("int") {Lexeme=yytext();return Int;} 
-("char") {Lexeme=yytext();return Char;} 
-("string") {Lexeme=yytext();return String;} 
-("float") {Lexeme=yytext();return Float;} 
-("if") {Lexeme=yytext();return If;} 
-("else") {Lexeme=yytext();return Else;}
-("switch") {Lexeme=yytext();return Switch;}
-("case") {Lexeme=yytext();return Case;} 
-("while") {Lexeme=yytext();return While;}
-("for") {Lexeme=yytext();return For;}
-("declare") {Lexeme=yytext();return Declare;}
-("false") {Lexeme=yytext();return False;}
-("true") {Lexeme=yytext();return True;}
+("entero") {Lexeme=yytext();return Entero;} 
+("varcar") {Lexeme=yytext();return VarCar;} 
+("flot") {Lexeme=yytext();return Flotante;} 
+("si") {Lexeme=yytext();return Si;} 
+("sino") {Lexeme=yytext();return Sino;}
+("select") {Lexeme=yytext();return Selector;}
+("caso") {Lexeme=yytext();return Caso;} 
+("ciclomientras") {Lexeme=yytext();return CicloMientras;}
+("ciclofor") {Lexeme=yytext();return CicloFor;}
+("declarar") {Lexeme=yytext();return Declarar;}
+("camtab") {Lexeme=yytext();return Campotrabajo;}
 
 /*Funciones*/
-("Longitud") {Lexeme=yytext(); return func_Longitud;}
-("CaracterEn") {Lexeme=yytext(); return func_CaracterEn;}
-("View") {Lexeme=yytext(); return func_View;}
-("ValidarCadena") {Lexeme=yytext(); return func_ValidarCadena;}
+("FValCad") {Lexeme=yytext(); return func_ValCad;}
+("FVer") {Lexeme=yytext(); return func_Ver;}
+("FContCarac") {Lexeme=yytext(); return func_ContCarac;}
+("FImprimir") {Lexeme=yytext(); return func_Imprimir;}
+
 
 /* Identificadores */
-({L}({L}_|{L}|{D}|{D}_)*({L}|{D})*) {Lexeme=yytext(); return ID;}
+({L}({L}_|{L}|{D}|{D}_)*({L}|{D})*) {Lexeme=yytext(); return Identificador;}
 ({D}{Palabra}) {Lexeme=yytext(); return ERR_ID;}
 
 /* Error de analisis */

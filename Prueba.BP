@@ -1,0 +1,13 @@
+##Aqui va una declaracion de una o más variables,,,,,
+
+Declarar varcar (gobernador presidente);
+
+FValCad(presidente "Espero se encuentre bien hoy y siempre");
+
+FContCarac(presidente);
+
+FValCad(gobernador "Espero se encuentre bien hoy y siempre");
+
+FImprimir(gobernador);
+
+FLong ("este es un borrador,,,,,,,,,,,,,,,, se le acabo la tinta a la impresora");

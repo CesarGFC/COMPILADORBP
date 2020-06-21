@@ -1,18 +1,45 @@
 package Ventanas;
 
 import java.io.File;
-
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 /**
  *
  * @author fenix
  */
 public class Principal {
-    public static void main(String args[]){
-        String path = "C:\\Users\\cesar\\Downloads\\BraillePrint\\src\\Ventanas\\Lexer.flex";
-        generarLexer(path);
+    public static void main(String args[]) throws Exception{
+        String path1 = "C:\\Users\\cesar\\Desktop\\CompiladorBP\\BraillePrint\\src\\Ventanas\\Lexer.flex";
+        String path2 = "C:\\Users\\cesar\\Desktop\\CompiladorBP\\BraillePrint\\src\\Ventanas\\LexerCup.flex";
+        String[] rutaS = {"-parser", "Sintax", "C:\\Users\\cesar\\Desktop\\CompiladorBP\\BraillePrint\\src\\Ventanas\\Sintax.cup"};
+        generar(path1, path2, rutaS);
     }    
-    public static void generarLexer(String path){
-        File file = new File(path);
+    public static void generar(String path1, String path2, String[] rutaS)throws IOException, Exception{
+        File file;
+        file = new File(path1);
         JFlex.Main.generate(file);
+        file = new File(path2);
+        JFlex.Main.generate(file);
+        java_cup.Main.main(rutaS);
+
+        Path rutaSym = Paths.get("C:\\Users\\cesar\\Desktop\\CompiladorBP\\BraillePrint\\src\\Ventanas\\sym.java");
+        if (Files.exists(rutaSym)) {
+            Files.delete(rutaSym);
+        }
+        Files.move(
+                Paths.get("C:\\Users\\cesar\\Desktop\\CompiladorBP\\BraillePrint\\sym.java"), 
+                Paths.get("C:\\Users\\cesar\\Desktop\\CompiladorBP\\BraillePrint\\src\\Ventanas\\sym.java")
+        );
+        Path rutaSin = Paths.get("C:\\Users\\cesar\\Desktop\\CompiladorBP\\BraillePrint\\src\\Ventanas\\Sintax.java");
+        if (Files.exists(rutaSin)) {
+            Files.delete(rutaSin);
+        }
+        Files.move(
+                Paths.get("C:\\Users\\cesar\\Desktop\\CompiladorBP\\BraillePrint\\Sintax.java"), 
+                Paths.get("C:\\Users\\cesar\\Desktop\\CompiladorBP\\BraillePrint\\src\\Ventanas\\Sintax.java")
+        );
     }
+
 }

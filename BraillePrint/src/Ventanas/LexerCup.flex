@@ -38,6 +38,9 @@ docComent = "/*"{coment}"*/"
 /* Comillas */
  "\"" {return new Symbol(sym.Comillas, yychar, yyline, yytext());}
 
+/* Comas */
+ "," {return new Symbol(sym.Coma, yychar, yyline, yytext());}
+
 /* Texto */
 ("\"" .* "\"") {return new Symbol(sym.Texto, yychar, yyline, yytext());}
 
@@ -97,9 +100,7 @@ docComent = "/*"{coment}"*/"
 ("varcar") {return new Symbol(sym.VarCar, yychar, yyline, yytext());} 
 ("flot") {return new Symbol(sym.Flotante, yychar, yyline, yytext());} 
 ("si") {return new Symbol(sym.Si, yychar, yyline, yytext());} 
-("sino") {return new Symbol(sym.Sino, yychar, yyline, yytext());}
-("select") {return new Symbol(sym.Selector, yychar, yyline, yytext());}
-("caso") {return new Symbol(sym.Caso, yychar, yyline, yytext());} 
+("alter") {return new Symbol(sym.Alter, yychar, yyline, yytext());}
 ("ciclomientras") {return new Symbol(sym.CicloMientras, yychar, yyline, yytext());}
 ("ciclofor") {return new Symbol(sym.CicloFor, yychar, yyline, yytext());}
 ("declarar") {return new Symbol(sym.Declarar, yychar, yyline, yytext());}

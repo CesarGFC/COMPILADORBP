@@ -15,17 +15,17 @@ parser code
 }
 :};
 
-terminal 
+terminal
     Entero, VarCar, Flotante, Texto,
-    Si, Sino, Selector, Caso, CicloMientras, CicloFor, Declarar, Campotrabajo,
+    Si, Alter, CicloMientras, CicloFor, Declarar, Campotrabajo,
     Adicion, Sustraccion, Producto, Cociente, 
-    Parentesis_a, Parentesis_c, Llave_a, Llave_c, Corchete_a, Corchete_c, Punto_Coma, Comillas,
+    Parentesis_a, Parentesis_c, Llave_a, Llave_c, Corchete_a, Corchete_c, Punto_Coma, Coma, Comillas,
     Op_Logico, Op_Relacional, Op_Booleano, Op_Atribucion, Asignacion, 
     Num_Entero, Identificador,
     func_Ver, func_ContCarac, func_ValCad, func_Imprimir, ERROR, ERR_ID, ERR_NUM
 ;
 non terminal 
-    INICIO, DECLARACION, DECLARACION_FOR, SI, SINO, FUNCION, TDATO,
+    INICIO, DECLARACION, DECLARACION_FOR, SI, FUNCION, TDATO,VALOR, ALTER,
     CICLOMIENTRAS, CICLOFOR, SENTENCIA_BOOLEANA, SENTENCIA_FOR, SENTENCIAS, CUERPO
 ;
 start with INICIO
@@ -37,50 +37,65 @@ CUERPO ::=
     Llave_a Llave_c |
     Llave_a SENTENCIAS Llave_c
 ;
+VALOR::= 
+ Num_Entero | Texto | Op_Booleano | Identificador
+;
 SENTENCIAS::= 
-  DECLARACION |
-  DECLARACION FUNCION |
-  DECLARACION FUNCION SENTENCIAS |
-  DECLARACION SENTENCIAS
+SENTENCIAS DECLARACION |
+DECLARACION |  
+SENTENCIAS SI |
+SI |
+SENTENCIAS ALTER |
+ALTER |
+SENTENCIAS FUNCION |
+FUNCION |
+SENTENCIAS CICLOMIENTRAS |
+CICLOMIENTRAS |
+SENTENCIAS CICLOFOR |
+CICLOFOR
 ;
 DECLARACION ::=  
-    Declarar Identificador Asignacion Corchete_a TDATO Corchete_c Punto_Coma
+    Declarar Corchete_a TDATO Corchete_c Identificador Asignacion VALOR Punto_Coma |
+    Declarar Corchete_a TDATO Corchete_c Identificador Coma Identificador Asignacion VALOR Punto_Coma
 ;
 TDATO::= 
-    Entero|Flotante|VarCar
+    Entero|Flotante|VarCar|Num_Entero
 ;
 FUNCION::=
     func_ValCad Llave_a Texto Llave_c Punto_Coma |
-    func_Ver Parentesis_a Identificador Parentesis_c Punto_Coma |
-    func_ContCarac Parentesis_a Identificador Parentesis_c Punto_Coma |
-    func_Imprimir Parentesis_a Identificador Parentesis_c Punto_Coma 
+    func_Ver Parentesis_a Identificador Parentesis_c Punto_Coma|
+    func_ContCarac Parentesis_a Identificador Parentesis_c Punto_Coma|
+    func_Imprimir Parentesis_a Identificador Parentesis_c Punto_Coma
 ;
-
 SI ::= 
-    Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIAS Llave_c
+    Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a Llave_c |
+    Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIAS Llave_c 
 ;
 SENTENCIA_BOOLEANA ::= 
     Op_Booleano | 
-    Identificador Op_Relacional Op_Booleano |
-    Identificador Op_Relacional Num_Entero |
-    Identificador Op_Relacional Identificador |
-    Identificador Op_Relacional Texto 
+    VALOR Op_Relacional VALOR
 ;
-SINO ::= 
-    SI Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIAS Llave_c Sino Llave_a SENTENCIAS Llave_c
+ALTER ::= 
+    Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a Llave_c Alter Llave_a Llave_c |
+    Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIAS Llave_c Alter Llave_a Llave_c |
+    Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIAS Llave_c Alter Llave_a SENTENCIAS Llave_c
 ;
 CICLOMIENTRAS ::= 
+    CicloMientras Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a  Llave_c |
     CicloMientras Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIAS Llave_c
 ;
 CICLOFOR ::= 
+    CicloFor Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a Llave_c |
     CicloFor Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIAS Llave_c
 ;
 SENTENCIA_FOR ::=
-    TDATO Identificador Asignacion Entero Punto_Coma SENTENCIA_BOOLEANA Punto_Coma DECLARACION_FOR |
-    Identificador Asignacion Entero Punto_Coma SENTENCIA_BOOLEANA Punto_Coma DECLARACION_FOR
+    Entero Identificador Asignacion Num_Entero Punto_Coma SENTENCIA_BOOLEANA Punto_Coma DECLARACION_FOR |
+    Identificador Asignacion Num_Entero Punto_Coma SENTENCIA_BOOLEANA Punto_Coma DECLARACION_FOR
 ;
 DECLARACION_FOR ::= 
-    Identificador Op_Atribucion Entero |
+    Identificador Op_Atribucion Num_Entero |
     Identificador Adicion Adicion | 
-    Adicion Adicion Identificador
+    Adicion Adicion Identificador |
+    Identificador Sustraccion Sustraccion | 
+    Sustraccion Sustraccion Identificador 
 ;

@@ -37,7 +37,7 @@ public class Compilador extends javax.swing.JFrame{
     private static ArrayList<String> lista3 = new ArrayList<>();
     static ArrayList<String> listaLexemas;
     static String DireccionPath = "";
-    private FileNameExtensionFilter filter = new FileNameExtensionFilter("BRAILLE PRINT", "BP");
+    private FileNameExtensionFilter filter = new FileNameExtensionFilter("BRAILLE PRINT", "bp");
 
     public Compilador() {
         initComponents();
@@ -84,7 +84,7 @@ public class Compilador extends javax.swing.JFrame{
                 while (wordR <= after) {
                     if (wordR == after || String.valueOf(text.charAt(wordR)).matches("\\W")) {
 
-                        if (text.substring(wordL, wordR).matches("(\\W)*(si|SI|sino|SINO|ciclomientras|CICLOMIENTRAS|"
+                        if (text.substring(wordL, wordR).matches("(\\W)*(ciclomientras|CICLOMIENTRAS|"
                                 + "ciclofor|CICLOFOR")) {
                             setCharacterAttributes(wordL, wordR - wordL, red, false);
                         } else if (text.substring(wordL, wordR).matches("(\\W)*(caso|CASO|select|SELECT)")) {
@@ -150,8 +150,8 @@ public class Compilador extends javax.swing.JFrame{
 //--------------------------------------------------------------FIN--------------------------------------------------------------------
     
     private void salir(){
-        if ((JOptionPane.showOptionDialog(this, "¿SALIR?",
-                "LOS CAMBIOS NO HAN SIDO GUARDADOS", YES_NO_OPTION, QUESTION_MESSAGE,null,new Object[] { "SI", "NO" }, "opcion 2"))==0){
+        if ((JOptionPane.showOptionDialog(this, "Los cambios no guardados se perderán,¿salir?",
+                "Cerrar programa", YES_NO_OPTION, QUESTION_MESSAGE,null,new Object[] { "Salir", "Cancelar" }, "opcion 2"))==0){
             System.exit(0);
         }
     }
@@ -460,7 +460,7 @@ public class Compilador extends javax.swing.JFrame{
 
     public void GuardarComo(){
         if(MENU.getText().equals("")){
-            javax.swing.JOptionPane.showMessageDialog(this, "NO ES POSIBLE GUARDAR UN ARCHIVO VACÍO","ADVERTENCIA",JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this, "No es posible guardar un archivo vacío","ADVERTENCIA",JOptionPane.ERROR_MESSAGE);
         }else{
             try{
                 JFileChooser guardarA = new JFileChooser();
@@ -487,7 +487,7 @@ public class Compilador extends javax.swing.JFrame{
     public void guardarArchivo(){
         if(DireccionPath.equals("")){
             if(MENU.getText().equals("")){
-                javax.swing.JOptionPane.showMessageDialog(this, "NO ES POSIBLE GUARDAR","ADVERTENCIA",JOptionPane.ERROR_MESSAGE);
+                javax.swing.JOptionPane.showMessageDialog(this, "No es posible guardar","ADVERTENCIA",JOptionPane.ERROR_MESSAGE);
             }else{
                 try{
                     JFileChooser guardarA = new JFileChooser();
@@ -496,11 +496,11 @@ public class Compilador extends javax.swing.JFrame{
                     File guardar = guardarA.getSelectedFile();
 
                     if(guardar != null){
-                        DireccionPath = guardar + ".BP";
-                        FileWriter save=new FileWriter(guardar+".BP");
+                        DireccionPath = guardar + ".bp";
+                        FileWriter save=new FileWriter(guardar+".bp");
                         save.write(MENU.getText());
                         save.close();
-                        lblTitulo.setText(guardar.getName() + ".BP");
+                        lblTitulo.setText(guardar.getName() + ".bp");
                     }
                 }catch(IOException ex){
                     System.out.println(ex);
@@ -553,8 +553,8 @@ public class Compilador extends javax.swing.JFrame{
     }
     
     private void itemNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNuevoActionPerformed
-        if ((JOptionPane.showOptionDialog(this, "¿GUARDAR?",
-                "SE PERDERA EL DOCUMENTO", YES_NO_OPTION, QUESTION_MESSAGE,null,new Object[] { "SI", "NO" }, "opcion 2"))==0){
+        if ((JOptionPane.showOptionDialog(this, "¿Guardar cambios?",
+                "Se perderá el documento", YES_NO_OPTION, QUESTION_MESSAGE,null,new Object[] { "Salir", "Cancelar" }, "opcion 2"))==0){
             guardarArchivo();
         }
         Errores.setText("");
@@ -587,7 +587,7 @@ public class Compilador extends javax.swing.JFrame{
     try{ 
         s.parse();
        Errores.setText("Análisis realizado correctamente");
-       Errores.setForeground(Color.yellow);
+       Errores.setForeground(Color.green);
     }catch(Exception ex){
         Symbol sym = s.getS();
         Errores.append("\nError de sintaxis Linea"+ (sym.right + 1 )+" Columna" + (sym.left + 1)+ ", Texto: \""+ sym.value + "\"");
@@ -611,7 +611,7 @@ public class Compilador extends javax.swing.JFrame{
         }
         Reader reader = new BufferedReader(new FileReader("fichero.txt")); 
         Lexer lexer = new Lexer(reader);
-        String resultado = "LINEA " + cont + "\t\tSIMBOLO\n";
+        String resultado = "Línea " + cont + "\t\tSIMBOLO\n";
         while(true){
             Token token = lexer.yylex();
             System.out.println(token);
@@ -680,6 +680,9 @@ public class Compilador extends javax.swing.JFrame{
                 case Punto_Coma:
                     modelo.addRow(new Object[]{"Signo_Puntuacion",";"});
                     break;
+                case Coma:
+                    modelo.addRow(new Object[]{"Signo_Puntuacion",lexer.Lexeme});
+                    break;
                 case Identificador:
                     modelo.addRow(new Object[]{"Identificador",lexer.Lexeme}); 
                     break;
@@ -695,6 +698,12 @@ public class Compilador extends javax.swing.JFrame{
                 case Campotrabajo:
                     modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
                     break;
+                case Si:
+                    modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
+                    break;
+                case Alter:
+                    modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
+                    break;
                 case Entero:
                     modelo.addRow(new Object[]{"Tipo de dato",lexer.Lexeme}); 
                     break;
@@ -704,29 +713,23 @@ public class Compilador extends javax.swing.JFrame{
                 case VarCar:
                     modelo.addRow(new Object[]{"Tipo de dato",lexer.Lexeme}); 
                     break;
-                case Si:
-                    modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
-                    break;
-                case Sino:
-                    modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
-                    break;
                 case func_Ver:case func_ContCarac:case func_Imprimir: case func_ValCad:
                     modelo.addRow(new Object[]{"Funcion",token});
                     break;   
                 case ERR_NUM:
-                    Errores.append("\nError 02:\tERROR LÉXICO\tLINEA: "+lexer.Line()+
-                            "\tCOLUMNA: "+lexer.Column()+"\t["+lexer.yytext()+"] NO ES RECONOCIDO COMO NUMERO VALIDO");
+                    Errores.append("\nError 02:\tERROR LÉXICO\tLínea: "+lexer.Line()+
+                            "\tColumna: "+lexer.Column()+"\t["+lexer.yytext()+"] No es reconocido como un número válido");
                     lineaErrores.setBackground(Color.red);
                     break;  
                 case ERR_ID:
-                    Errores.append("\nError 03:\tERROR LÉXICO\tLINEA: "+lexer.Line()+
-                            "\tCOLUMNA: "+lexer.Column()+"\t["+lexer.yytext()+"] NO ES RECONOCIDO COMO UN ID VALIDO");
+                    Errores.append("\nError 03:\tERROR LÉXICO\tLínea: "+lexer.Line()+
+                            "\tColumna: "+lexer.Column()+"\t["+lexer.yytext()+"] No es reconocido como un ID válido");
                     lineaErrores.setBackground(Color.red);
                     break;
                 default: 
                     //modelo.addRow(new Object[]{"Error Simbolo desconocido",lexer.Lexeme});
-                    Errores.append("\nError 01:\tERROR LÉXICO\tLINEA: "+lexer.Line()+
-                            "\tCOLUMNA: "+lexer.Column()+"\t["+lexer.yytext()+"] NO FORMA PARTE DEL LENGUAJE");
+                    Errores.append("\nError 01:\tERROR LÉXICO\tLínea: "+lexer.Line()+
+                            "\tColumna: "+lexer.Column()+"\t["+lexer.yytext()+"] No forma parte del lenguaje");
                     lineaErrores.setBackground(Color.red);
             }
         }

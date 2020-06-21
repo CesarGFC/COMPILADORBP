@@ -51,6 +51,8 @@ docComent = "/*"{coment}"*/"
 
 (";") {Lexeme=yytext(); return Punto_Coma;}
 
+("\,") {Lexeme=yytext(); return Coma;}
+
 /* Operador Suma */
 ( \+ ) {Lexeme=yytext(); return Adicion;}
 
@@ -67,7 +69,7 @@ docComent = "/*"{coment}"*/"
 ( "=" ) {Lexeme=yytext(); return Asignacion;}
 
 /* Operador Atribucion */
-( "+=" | "=+" | "/=" | "=/" | "*=" | "=*" | "-=" | "=-") {Lexeme=yytext(); return Op_Atribucion;}
+( "+=" | "/=" | "*=" | "-=") {Lexeme=yytext(); return Op_Atribucion;}
 
 /* Parentesis de apertura */
 ( "(" ) {Lexeme=yytext(); return Parentesis_a;}
@@ -91,13 +93,11 @@ docComent = "/*"{coment}"*/"
 ({Sign}?)({D}+) { Lexeme=yytext(); return Num_Entero;}
 (({Sign}?|"-"?)(("."|",")*{D}(("."|",")*{D}*("."|",")*)*)+) { Lexeme=yytext(); return ERR_NUM;}
 
-("entero") {Lexeme=yytext();return Entero;} 
+("entero") {Lexeme=yytext();return Entero;}
 ("varcar") {Lexeme=yytext();return VarCar;} 
 ("flot") {Lexeme=yytext();return Flotante;} 
 ("si") {Lexeme=yytext();return Si;} 
-("sino") {Lexeme=yytext();return Sino;}
-("select") {Lexeme=yytext();return Selector;}
-("caso") {Lexeme=yytext();return Caso;} 
+("alter") {Lexeme=yytext();return Alter;} 
 ("ciclomientras") {Lexeme=yytext();return CicloMientras;}
 ("ciclofor") {Lexeme=yytext();return CicloFor;}
 ("declarar") {Lexeme=yytext();return Declarar;}

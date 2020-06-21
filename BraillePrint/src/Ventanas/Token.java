@@ -6,13 +6,14 @@ package Ventanas;
  */
 public enum Token {
 Linea,
+Coma,
 Comillas,
 Texto,
 Entero,
 VarCar,
 Flotante,
 Si,
-Sino,
+Alter,
 Selector,
 Caso,
 CicloMientras,

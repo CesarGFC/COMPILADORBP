@@ -17,53 +17,47 @@ parser code
 
 terminal 
     Entero, VarCar, Flotante, Texto,
-    Si, Sino, Selector, Caso, CicloMientras, CicloFor, Declarar,
+    Si, Sino, Selector, Caso, CicloMientras, CicloFor, Declarar, Campotrabajo,
     Adicion, Sustraccion, Producto, Cociente, 
     Parentesis_a, Parentesis_c, Llave_a, Llave_c, Corchete_a, Corchete_c, Punto_Coma, Comillas,
     Op_Logico, Op_Relacional, Op_Booleano, Op_Atribucion, Asignacion, 
-    Num_Entero, Identificador,  
-    func_Long, func_ContCarac, func_ValCad, func_Imprimir, 
-    ERROR, ERR_ID, ERR_NUM;
-
-non terminal INICIO, DECLARACION, DECLARACION_FOR, SI, SINO, FUNCION, TDATO,
-    CICLOMIENTRAS, CICLOFOR, SENTENCIA_BOOLEANA, SENTENCIA_FOR, SENTENCIA
+    Num_Entero, Identificador,
+    func_Ver, func_ContCarac, func_ValCad, func_Imprimir, ERROR, ERR_ID, ERR_NUM
+;
+non terminal 
+    INICIO, DECLARACION, DECLARACION_FOR, SI, SINO, FUNCION, TDATO,
+    CICLOMIENTRAS, CICLOFOR, SENTENCIA_BOOLEANA, SENTENCIA_FOR, SENTENCIAS, CUERPO
 ;
 start with INICIO
 ;
 INICIO ::= 
- DECLARACION FUNCION
+    Campotrabajo CUERPO
 ;
-DECLARACION ::= Declarar Identificador Asignacion Corchete_a TDATO Corchete_c Punto_Coma
+CUERPO ::=
+    Llave_a Llave_c |
+    Llave_a SENTENCIAS Llave_c
+;
+SENTENCIAS::= 
+  DECLARACION |
+  DECLARACION FUNCION |
+  DECLARACION FUNCION SENTENCIAS |
+  DECLARACION SENTENCIAS
+;
+DECLARACION ::=  
+    Declarar Identificador Asignacion Corchete_a TDATO Corchete_c Punto_Coma
 ;
 TDATO::= 
-Texto|Entero|Flotante|VarCar
+    Entero|Flotante|VarCar
 ;
-/*FUNCION ::=
-func_Long Parentesis_a Identificador Parentesis_c Punto_Coma |
-func_ContCarac Parentesis_a Identificador Parentesis_c Punto_Coma |
-func_ValCad Llave_a Texto Llave_c Punto_Coma |
-func_Imprimir Parentesis_a Identificador Parentesis_c Punto_Coma |
-;*/
+FUNCION::=
+    func_ValCad Llave_a Texto Llave_c Punto_Coma |
+    func_Ver Parentesis_a Identificador Parentesis_c Punto_Coma |
+    func_ContCarac Parentesis_a Identificador Parentesis_c Punto_Coma |
+    func_Imprimir Parentesis_a Identificador Parentesis_c Punto_Coma 
+;
 
-SENTENCIA ::= 
-    SENTENCIA DECLARACION |
-    DECLARACION |
-    SENTENCIA Si | 
-    Si |
-    SENTENCIA Sino |
-    Sino |
-    SENTENCIA CicloMientras |
-    CicloMientras |
-    SENTENCIA CicloFor |
-    CicloFor
-;
-DECLARACION ::= 
-    TDATO Identificador Asignacion Num_Entero Punto_Coma |
-    TDATO Identificador Adicion Adicion Punto_Coma | 
-    TDATO Adicion Adicion Identificador Punto_Coma | 
-    TDATO Identificador Asignacion Texto Punto_Coma
-;
-SI ::= Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c
+SI ::= 
+    Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIAS Llave_c
 ;
 SENTENCIA_BOOLEANA ::= 
     Op_Booleano | 
@@ -72,11 +66,14 @@ SENTENCIA_BOOLEANA ::=
     Identificador Op_Relacional Identificador |
     Identificador Op_Relacional Texto 
 ;
-SINO ::= SI Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c Sino Llave_a SENTENCIA Llave_c
+SINO ::= 
+    SI Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIAS Llave_c Sino Llave_a SENTENCIAS Llave_c
 ;
-CICLOMIENTRAS ::= CicloMientras Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c
+CICLOMIENTRAS ::= 
+    CicloMientras Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIAS Llave_c
 ;
-CICLOFOR ::= CicloFor Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c
+CICLOFOR ::= 
+    CicloFor Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIAS Llave_c
 ;
 SENTENCIA_FOR ::=
     TDATO Identificador Asignacion Entero Punto_Coma SENTENCIA_BOOLEANA Punto_Coma DECLARACION_FOR |

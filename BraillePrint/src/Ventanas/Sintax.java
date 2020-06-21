@@ -31,17 +31,16 @@ public class Sintax extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\043\000\002\002\004\000\002\002\004\000\002\003" +
-    "\011\000\002\010\003\000\002\010\003\000\002\010\003" +
-    "\000\002\010\003\000\002\015\004\000\002\015\003\000" +
-    "\002\015\004\000\002\015\003\000\002\015\004\000\002" +
-    "\015\003\000\002\015\004\000\002\015\003\000\002\015" +
-    "\004\000\002\015\003\000\002\003\007\000\002\003\007" +
-    "\000\002\003\007\000\002\003\007\000\002\005\011\000" +
-    "\002\013\003\000\002\013\005\000\002\013\005\000\002" +
-    "\013\005\000\002\013\005\000\002\006\015\000\002\011" +
-    "\011\000\002\012\011\000\002\014\012\000\002\014\011" +
-    "\000\002\004\005\000\002\004\005\000\002\004\005" });
+    "\000\036\000\002\002\004\000\002\002\004\000\002\016" +
+    "\004\000\002\016\005\000\002\015\003\000\002\015\004" +
+    "\000\002\015\005\000\002\015\004\000\002\003\011\000" +
+    "\002\010\003\000\002\010\003\000\002\010\003\000\002" +
+    "\007\007\000\002\007\007\000\002\007\007\000\002\007" +
+    "\007\000\002\005\011\000\002\013\003\000\002\013\005" +
+    "\000\002\013\005\000\002\013\005\000\002\013\005\000" +
+    "\002\006\015\000\002\011\011\000\002\012\011\000\002" +
+    "\014\012\000\002\014\011\000\002\004\005\000\002\004" +
+    "\005\000\002\004\005" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -49,22 +48,29 @@ public class Sintax extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\036\000\014\004\013\005\004\006\006\007\010\016" +
-    "\005\001\002\000\010\017\ufffb\030\ufffb\041\ufffb\001\002" +
-    "\000\004\041\033\001\002\000\010\017\ufffc\030\ufffc\041" +
-    "\ufffc\001\002\000\002\001\002\000\010\017\ufffe\030\ufffe" +
-    "\041\ufffe\001\002\000\006\017\015\041\016\001\002\000" +
-    "\004\002\014\001\002\000\010\017\ufffd\030\ufffd\041\ufffd" +
-    "\001\002\000\004\002\001\001\002\000\004\017\027\001" +
-    "\002\000\006\017\017\037\020\001\002\000\004\017\025" +
-    "\001\002\000\006\007\022\040\021\001\002\000\004\031" +
-    "\024\001\002\000\004\031\023\001\002\000\002\001\002" +
-    "\000\002\001\002\000\004\031\026\001\002\000\002\001" +
-    "\002\000\004\041\030\001\002\000\004\031\031\001\002" +
-    "\000\002\001\002\000\004\002\000\001\002\000\004\037" +
-    "\034\001\002\000\004\027\035\001\002\000\012\004\013" +
-    "\005\004\006\006\007\010\001\002\000\004\030\037\001" +
-    "\002\000\004\031\040\001\002\000\002\001\002" });
+    "\000\053\000\004\017\004\001\002\000\004\026\007\001" +
+    "\002\000\004\002\006\001\002\000\004\002\001\001\002" +
+    "\000\006\016\012\027\011\001\002\000\004\002\000\001" +
+    "\002\000\004\002\uffff\001\002\000\004\042\045\001\002" +
+    "\000\016\016\012\027\ufffd\043\017\044\020\045\022\046" +
+    "\023\001\002\000\004\027\015\001\002\000\004\002\ufffe" +
+    "\001\002\000\006\016\012\027\ufffc\001\002\000\004\024" +
+    "\040\001\002\000\004\024\034\001\002\000\004\027\ufffa" +
+    "\001\002\000\004\026\030\001\002\000\004\024\024\001" +
+    "\002\000\004\042\025\001\002\000\004\025\026\001\002" +
+    "\000\004\032\027\001\002\000\006\016\ufff2\027\ufff2\001" +
+    "\002\000\004\007\031\001\002\000\004\027\032\001\002" +
+    "\000\004\032\033\001\002\000\006\016\ufff5\027\ufff5\001" +
+    "\002\000\004\042\035\001\002\000\004\025\036\001\002" +
+    "\000\004\032\037\001\002\000\006\016\ufff3\027\ufff3\001" +
+    "\002\000\004\042\041\001\002\000\004\025\042\001\002" +
+    "\000\004\032\043\001\002\000\006\016\ufff4\027\ufff4\001" +
+    "\002\000\004\027\ufffb\001\002\000\004\040\046\001\002" +
+    "\000\004\030\047\001\002\000\010\004\053\005\050\006" +
+    "\051\001\002\000\004\031\ufff6\001\002\000\004\031\ufff7" +
+    "\001\002\000\004\031\054\001\002\000\004\031\ufff8\001" +
+    "\002\000\004\032\055\001\002\000\016\016\ufff9\027\ufff9" +
+    "\043\ufff9\044\ufff9\045\ufff9\046\ufff9\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -72,17 +78,21 @@ public class Sintax extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\036\000\010\002\011\003\006\010\010\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
-    "\007\031\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\000\053\000\004\002\004\001\001\000\004\016\007\001" +
+    "\001\000\002\001\001\000\002\001\001\000\006\003\012" +
+    "\015\013\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\010\003\012\007\015\015\020\001\001" +
+    "\000\002\001\001\000\002\001\001\000\006\003\012\015" +
+    "\043\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\004\010" +
-    "\035\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001" });
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\004\010\051\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -171,7 +181,7 @@ class CUP$Sintax$actions {
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 1: // INICIO ::= DECLARACION FUNCION 
+          case 1: // INICIO ::= Campotrabajo CUERPO 
             {
               Object RESULT =null;
 
@@ -180,7 +190,61 @@ class CUP$Sintax$actions {
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 2: // DECLARACION ::= Declarar Identificador Asignacion Corchete_a TDATO Corchete_c Punto_Coma 
+          case 2: // CUERPO ::= Llave_a Llave_c 
+            {
+              Object RESULT =null;
+
+              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("CUERPO",12, ((java_cup.runtime.Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-1)), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
+            }
+          return CUP$Sintax$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 3: // CUERPO ::= Llave_a SENTENCIAS Llave_c 
+            {
+              Object RESULT =null;
+
+              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("CUERPO",12, ((java_cup.runtime.Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-2)), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
+            }
+          return CUP$Sintax$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 4: // SENTENCIAS ::= DECLARACION 
+            {
+              Object RESULT =null;
+
+              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("SENTENCIAS",11, ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
+            }
+          return CUP$Sintax$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 5: // SENTENCIAS ::= DECLARACION FUNCION 
+            {
+              Object RESULT =null;
+
+              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("SENTENCIAS",11, ((java_cup.runtime.Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-1)), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
+            }
+          return CUP$Sintax$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 6: // SENTENCIAS ::= DECLARACION FUNCION SENTENCIAS 
+            {
+              Object RESULT =null;
+
+              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("SENTENCIAS",11, ((java_cup.runtime.Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-2)), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
+            }
+          return CUP$Sintax$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 7: // SENTENCIAS ::= DECLARACION SENTENCIAS 
+            {
+              Object RESULT =null;
+
+              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("SENTENCIAS",11, ((java_cup.runtime.Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-1)), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
+            }
+          return CUP$Sintax$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 8: // DECLARACION ::= Declarar Identificador Asignacion Corchete_a TDATO Corchete_c Punto_Coma 
             {
               Object RESULT =null;
 
@@ -189,7 +253,7 @@ class CUP$Sintax$actions {
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 3: // TDATO ::= Texto 
+          case 9: // TDATO ::= Entero 
             {
               Object RESULT =null;
 
@@ -198,7 +262,7 @@ class CUP$Sintax$actions {
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 4: // TDATO ::= Entero 
+          case 10: // TDATO ::= Flotante 
             {
               Object RESULT =null;
 
@@ -207,7 +271,7 @@ class CUP$Sintax$actions {
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // TDATO ::= Flotante 
+          case 11: // TDATO ::= VarCar 
             {
               Object RESULT =null;
 
@@ -216,142 +280,43 @@ class CUP$Sintax$actions {
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // TDATO ::= VarCar 
+          case 12: // FUNCION ::= func_ValCad Llave_a Texto Llave_c Punto_Coma 
             {
               Object RESULT =null;
 
-              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("TDATO",6, ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
+              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("FUNCION",5, ((java_cup.runtime.Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-4)), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
             }
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // SENTENCIA ::= SENTENCIA DECLARACION 
+          case 13: // FUNCION ::= func_Ver Parentesis_a Identificador Parentesis_c Punto_Coma 
             {
               Object RESULT =null;
 
-              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("SENTENCIA",11, ((java_cup.runtime.Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-1)), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
+              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("FUNCION",5, ((java_cup.runtime.Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-4)), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
             }
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // SENTENCIA ::= DECLARACION 
+          case 14: // FUNCION ::= func_ContCarac Parentesis_a Identificador Parentesis_c Punto_Coma 
             {
               Object RESULT =null;
 
-              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("SENTENCIA",11, ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
+              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("FUNCION",5, ((java_cup.runtime.Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-4)), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
             }
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 9: // SENTENCIA ::= SENTENCIA Si 
+          case 15: // FUNCION ::= func_Imprimir Parentesis_a Identificador Parentesis_c Punto_Coma 
             {
               Object RESULT =null;
 
-              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("SENTENCIA",11, ((java_cup.runtime.Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-1)), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
+              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("FUNCION",5, ((java_cup.runtime.Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-4)), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
             }
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 10: // SENTENCIA ::= Si 
-            {
-              Object RESULT =null;
-
-              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("SENTENCIA",11, ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
-            }
-          return CUP$Sintax$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // SENTENCIA ::= SENTENCIA Sino 
-            {
-              Object RESULT =null;
-
-              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("SENTENCIA",11, ((java_cup.runtime.Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-1)), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
-            }
-          return CUP$Sintax$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 12: // SENTENCIA ::= Sino 
-            {
-              Object RESULT =null;
-
-              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("SENTENCIA",11, ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
-            }
-          return CUP$Sintax$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 13: // SENTENCIA ::= SENTENCIA CicloMientras 
-            {
-              Object RESULT =null;
-
-              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("SENTENCIA",11, ((java_cup.runtime.Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-1)), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
-            }
-          return CUP$Sintax$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 14: // SENTENCIA ::= CicloMientras 
-            {
-              Object RESULT =null;
-
-              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("SENTENCIA",11, ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
-            }
-          return CUP$Sintax$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 15: // SENTENCIA ::= SENTENCIA CicloFor 
-            {
-              Object RESULT =null;
-
-              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("SENTENCIA",11, ((java_cup.runtime.Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-1)), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
-            }
-          return CUP$Sintax$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 16: // SENTENCIA ::= CicloFor 
-            {
-              Object RESULT =null;
-
-              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("SENTENCIA",11, ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
-            }
-          return CUP$Sintax$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 17: // DECLARACION ::= TDATO Identificador Asignacion Num_Entero Punto_Coma 
-            {
-              Object RESULT =null;
-
-              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("DECLARACION",1, ((java_cup.runtime.Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-4)), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
-            }
-          return CUP$Sintax$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 18: // DECLARACION ::= TDATO Identificador Adicion Adicion Punto_Coma 
-            {
-              Object RESULT =null;
-
-              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("DECLARACION",1, ((java_cup.runtime.Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-4)), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
-            }
-          return CUP$Sintax$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 19: // DECLARACION ::= TDATO Adicion Adicion Identificador Punto_Coma 
-            {
-              Object RESULT =null;
-
-              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("DECLARACION",1, ((java_cup.runtime.Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-4)), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
-            }
-          return CUP$Sintax$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 20: // DECLARACION ::= TDATO Identificador Asignacion Texto Punto_Coma 
-            {
-              Object RESULT =null;
-
-              CUP$Sintax$result = parser.getSymbolFactory().newSymbol("DECLARACION",1, ((java_cup.runtime.Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-4)), ((java_cup.runtime.Symbol)CUP$Sintax$stack.peek()), RESULT);
-            }
-          return CUP$Sintax$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 21: // SI ::= Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c 
+          case 16: // SI ::= Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIAS Llave_c 
             {
               Object RESULT =null;
 
@@ -360,7 +325,7 @@ class CUP$Sintax$actions {
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 22: // SENTENCIA_BOOLEANA ::= Op_Booleano 
+          case 17: // SENTENCIA_BOOLEANA ::= Op_Booleano 
             {
               Object RESULT =null;
 
@@ -369,7 +334,7 @@ class CUP$Sintax$actions {
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 23: // SENTENCIA_BOOLEANA ::= Identificador Op_Relacional Op_Booleano 
+          case 18: // SENTENCIA_BOOLEANA ::= Identificador Op_Relacional Op_Booleano 
             {
               Object RESULT =null;
 
@@ -378,7 +343,7 @@ class CUP$Sintax$actions {
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 24: // SENTENCIA_BOOLEANA ::= Identificador Op_Relacional Num_Entero 
+          case 19: // SENTENCIA_BOOLEANA ::= Identificador Op_Relacional Num_Entero 
             {
               Object RESULT =null;
 
@@ -387,7 +352,7 @@ class CUP$Sintax$actions {
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 25: // SENTENCIA_BOOLEANA ::= Identificador Op_Relacional Identificador 
+          case 20: // SENTENCIA_BOOLEANA ::= Identificador Op_Relacional Identificador 
             {
               Object RESULT =null;
 
@@ -396,7 +361,7 @@ class CUP$Sintax$actions {
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 26: // SENTENCIA_BOOLEANA ::= Identificador Op_Relacional Texto 
+          case 21: // SENTENCIA_BOOLEANA ::= Identificador Op_Relacional Texto 
             {
               Object RESULT =null;
 
@@ -405,7 +370,7 @@ class CUP$Sintax$actions {
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 27: // SINO ::= SI Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c Sino Llave_a SENTENCIA Llave_c 
+          case 22: // SINO ::= SI Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIAS Llave_c Sino Llave_a SENTENCIAS Llave_c 
             {
               Object RESULT =null;
 
@@ -414,7 +379,7 @@ class CUP$Sintax$actions {
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 28: // CICLOMIENTRAS ::= CicloMientras Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c 
+          case 23: // CICLOMIENTRAS ::= CicloMientras Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIAS Llave_c 
             {
               Object RESULT =null;
 
@@ -423,7 +388,7 @@ class CUP$Sintax$actions {
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 29: // CICLOFOR ::= CicloFor Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c 
+          case 24: // CICLOFOR ::= CicloFor Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIAS Llave_c 
             {
               Object RESULT =null;
 
@@ -432,7 +397,7 @@ class CUP$Sintax$actions {
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 30: // SENTENCIA_FOR ::= TDATO Identificador Asignacion Entero Punto_Coma SENTENCIA_BOOLEANA Punto_Coma DECLARACION_FOR 
+          case 25: // SENTENCIA_FOR ::= TDATO Identificador Asignacion Entero Punto_Coma SENTENCIA_BOOLEANA Punto_Coma DECLARACION_FOR 
             {
               Object RESULT =null;
 
@@ -441,7 +406,7 @@ class CUP$Sintax$actions {
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 31: // SENTENCIA_FOR ::= Identificador Asignacion Entero Punto_Coma SENTENCIA_BOOLEANA Punto_Coma DECLARACION_FOR 
+          case 26: // SENTENCIA_FOR ::= Identificador Asignacion Entero Punto_Coma SENTENCIA_BOOLEANA Punto_Coma DECLARACION_FOR 
             {
               Object RESULT =null;
 
@@ -450,7 +415,7 @@ class CUP$Sintax$actions {
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 32: // DECLARACION_FOR ::= Identificador Op_Atribucion Entero 
+          case 27: // DECLARACION_FOR ::= Identificador Op_Atribucion Entero 
             {
               Object RESULT =null;
 
@@ -459,7 +424,7 @@ class CUP$Sintax$actions {
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 33: // DECLARACION_FOR ::= Identificador Adicion Adicion 
+          case 28: // DECLARACION_FOR ::= Identificador Adicion Adicion 
             {
               Object RESULT =null;
 
@@ -468,7 +433,7 @@ class CUP$Sintax$actions {
           return CUP$Sintax$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 34: // DECLARACION_FOR ::= Adicion Adicion Identificador 
+          case 29: // DECLARACION_FOR ::= Adicion Adicion Identificador 
             {
               Object RESULT =null;
 

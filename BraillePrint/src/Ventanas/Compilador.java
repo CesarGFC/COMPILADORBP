@@ -9,6 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Reader;
+import java.io.StringReader;
+import java_cup.runtime.Symbol;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -87,7 +89,7 @@ public class Compilador extends javax.swing.JFrame{
                             setCharacterAttributes(wordL, wordR - wordL, red, false);
                         } else if (text.substring(wordL, wordR).matches("(\\W)*(caso|CASO|select|SELECT)")) {
                             setCharacterAttributes(wordL, wordR - wordL, green, false);
-                        } else if (text.substring(wordL, wordR).matches("(\\W)*(flot|FLOT|entero|ENTERO|varcar|VARCAR|verdadero|VERDADERO|falso|FALSO)")) {
+                        } else if (text.substring(wordL, wordR).matches("(\\W)*(flot|FLOT|entero|ENTERO|varcar|VARCAR)")) {
                             setCharacterAttributes(wordL, wordR - wordL, orange, false);
                         } else {
                             setCharacterAttributes(wordL, wordR - wordL, Black, false);
@@ -149,7 +151,7 @@ public class Compilador extends javax.swing.JFrame{
     
     private void salir(){
         if ((JOptionPane.showOptionDialog(this, "¿SALIR?",
-                "CAMBIOS NO HAN SIDO GUARDADOS", YES_NO_OPTION, QUESTION_MESSAGE,null,new Object[] { "SI", "NO" }, "opcion 2"))==0){
+                "LOS CAMBIOS NO HAN SIDO GUARDADOS", YES_NO_OPTION, QUESTION_MESSAGE,null,new Object[] { "SI", "NO" }, "opcion 2"))==0){
             System.exit(0);
         }
     }
@@ -219,7 +221,7 @@ public class Compilador extends javax.swing.JFrame{
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("FORyCOM");
+        setTitle("BraillePrint");
         setIconImage(getIconImage());
         setMinimumSize(new java.awt.Dimension(1100, 650));
 
@@ -259,7 +261,7 @@ public class Compilador extends javax.swing.JFrame{
 
             },
             new String [] {
-                "LEXEMA", "COMPONENTE LEXICO"
+              "COMPONENTE LEXICO", "LEXEMA"
             }
         ));
         jScrollPane2.setViewportView(Tabla);
@@ -579,8 +581,22 @@ public class Compilador extends javax.swing.JFrame{
             cont--;
         }
     }
+  public void probarsintaxfile() throws FileNotFoundException,IOException{    
+    String ST = MENU.getText();
+     Sintax s = new Sintax(new Ventanas.LexerCup(new StringReader(ST)));
+    try{ 
+        s.parse();
+       Errores.setText("Análisis realizado correctamente");
+       Errores.setForeground(Color.yellow);
+    }catch(Exception ex){
+        Symbol sym = s.getS();
+        Errores.append("\nError de sintaxis Linea"+ (sym.right + 1 )+" Columna" + (sym.left + 1)+ ", Texto: \""+ sym.value + "\"");
+        Errores.setForeground(Color.red);
+    }
+}
 
    public void probarlexerfile() throws FileNotFoundException, IOException{
+        int cont = 1;
         Errores.setText("\t-COMPILACION-\n");
         DefaultTableModel modelo = (DefaultTableModel) Tabla.getModel();
         File fichero = new File("fichero.txt");
@@ -593,20 +609,20 @@ public class Compilador extends javax.swing.JFrame{
             System.out.println("Fichero no encontrado");
             return;
         }
-        Reader reader = new BufferedReader(new FileReader("fichero.txt"));
+        Reader reader = new BufferedReader(new FileReader("fichero.txt")); 
         Lexer lexer = new Lexer(reader);
+        String resultado = "LINEA " + cont + "\t\tSIMBOLO\n";
         while(true){
             Token token = lexer.yylex();
             System.out.println(token);
             if(token == null){
                 return;
             }
-            
             switch(token){
-                //case Linea:
-                  //  cont++;
-                    // resultado = "Linea: "+ cont + "\n";
-                     //break;
+                case Linea:
+                  cont++;
+                 resultado = "Linea: "+ cont + "\n";
+                break;
                 case Num_Entero:
                     modelo.addRow(new Object[]{token,lexer.Lexeme}); 
                     break;
@@ -670,13 +686,13 @@ public class Compilador extends javax.swing.JFrame{
                 case CicloMientras:
                     modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
                     break;
-                case CicloMientras:
-                    modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
-                    break;
                 case CicloFor:
                     modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
                     break;
                 case Declarar:
+                    modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
+                    break;
+                case Campotrabajo:
                     modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
                     break;
                 case Entero:
@@ -694,9 +710,6 @@ public class Compilador extends javax.swing.JFrame{
                 case Sino:
                     modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
                     break;
-                //case Entero:case Caracter:case VarCar:case Flotante:
-                  //  modelo.addRow(new Object[]{"Tipo de dato",token}); 
-                   // break;
                 case func_Ver:case func_ContCarac:case func_Imprimir: case func_ValCad:
                     modelo.addRow(new Object[]{"Funcion",token});
                     break;   
@@ -704,15 +717,13 @@ public class Compilador extends javax.swing.JFrame{
                     Errores.append("\nError 02:\tERROR LÉXICO\tLINEA: "+lexer.Line()+
                             "\tCOLUMNA: "+lexer.Column()+"\t["+lexer.yytext()+"] NO ES RECONOCIDO COMO NUMERO VALIDO");
                     lineaErrores.setBackground(Color.red);
-                    break;
-                    
+                    break;  
                 case ERR_ID:
                     Errores.append("\nError 03:\tERROR LÉXICO\tLINEA: "+lexer.Line()+
                             "\tCOLUMNA: "+lexer.Column()+"\t["+lexer.yytext()+"] NO ES RECONOCIDO COMO UN ID VALIDO");
                     lineaErrores.setBackground(Color.red);
                     break;
-                
-               default: 
+                default: 
                     //modelo.addRow(new Object[]{"Error Simbolo desconocido",lexer.Lexeme});
                     Errores.append("\nError 01:\tERROR LÉXICO\tLINEA: "+lexer.Line()+
                             "\tCOLUMNA: "+lexer.Column()+"\t["+lexer.yytext()+"] NO FORMA PARTE DEL LENGUAJE");
@@ -735,6 +746,7 @@ public class Compilador extends javax.swing.JFrame{
             LimpiarTabla();
             lineaErrores.setBackground(new Color(129,139,149));
             probarlexerfile();
+            probarsintaxfile();
             if(listaErrores.isEmpty()){
                 for(String error: listaErrores){
                     Errores.append("\n"+error);
@@ -751,7 +763,6 @@ public class Compilador extends javax.swing.JFrame{
         // TODO add your handling code here:
          LimpiarTabla();
         Errores.setText(null);
-        
     }//GEN-LAST:event_btnLimpiarActionPerformed
     
     /**

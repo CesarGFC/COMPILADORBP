@@ -18,11 +18,11 @@ coment = ([^*]|\*+[^/*])*
 docComent = "/*"{coment}"*/"
 
 %{
-    private Symbol symbol (int type, Object value){
-        return new Symbol (type, yyline, yycolumn,value);
+    private Symbol symbol(int type, Object value){
+        return new Symbol(type, yyline, yycolumn, value);
     }
- private Symbol symbol (int type){
-        return new Symbol (type, yyline);
+    private Symbol symbol(int type){
+        return new Symbol(type, yyline, yycolumn);
     }
     
 %}
@@ -103,9 +103,10 @@ docComent = "/*"{coment}"*/"
 ("ciclomientras") {return new Symbol(sym.CicloMientras, yychar, yyline, yytext());}
 ("ciclofor") {return new Symbol(sym.CicloFor, yychar, yyline, yytext());}
 ("declarar") {return new Symbol(sym.Declarar, yychar, yyline, yytext());}
+("camptrab") {return new Symbol(sym.Campotrabajo, yychar, yyline, yytext());}
 
 /*Funciones*/
-("FLong") {return new Symbol(sym.func_Long, yychar, yyline, yytext());}
+("FVer") {return new Symbol(sym.func_Ver, yychar, yyline, yytext());}
 ("FContCarac") {return new Symbol(sym.func_ContCarac, yychar, yyline, yytext());}
 ("FImprimir") {return new Symbol(sym.func_Imprimir, yychar, yyline, yytext());}
 ("FValCad") {return new Symbol(sym.func_ValCad, yychar, yyline, yytext());}

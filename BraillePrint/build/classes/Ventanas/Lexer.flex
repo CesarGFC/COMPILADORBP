@@ -10,7 +10,7 @@ L = [a-zA-ZáéíóúñÑ]+
 D = [0-9]+
 Palabra = {L}({L}_|{L}|{D}|{D}_)*({L}|{D})*
 Sign = [+]
-espacio = [ |\t|\r|\n]+
+espacio = [ \t|\r|\n]+
 coment = ([^*]|\*+[^/*])*
 docComent = "/*"{coment}"*/"
 
@@ -101,12 +101,14 @@ docComent = "/*"{coment}"*/"
 ("ciclomientras") {Lexeme=yytext();return CicloMientras;}
 ("ciclofor") {Lexeme=yytext();return CicloFor;}
 ("declarar") {Lexeme=yytext();return Declarar;}
+("camptrab") {Lexeme=yytext();return Campotrabajo;}
 
 /*Funciones*/
-("FLong") {Lexeme=yytext(); return func_Long;}
+("FValCad") {Lexeme=yytext(); return func_ValCad;}
+("FVer") {Lexeme=yytext(); return func_Ver;}
 ("FContCarac") {Lexeme=yytext(); return func_ContCarac;}
 ("FImprimir") {Lexeme=yytext(); return func_Imprimir;}
-("FValCad") {Lexeme=yytext(); return func_ValCad;}
+
 
 /* Identificadores */
 ({L}({L}_|{L}|{D}|{D}_)*({L}|{D})*) {Lexeme=yytext(); return Identificador;}

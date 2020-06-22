@@ -113,7 +113,6 @@ FUNCION::=
 ;
 SI ::= 
     Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a Llave_c |
-    Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a         :s{:errores.add(new ErrorLexSint(3,"","Error sintáctico", sright+1, sleft+1, "Llave de cierre no encontrada"));:} 
     Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c         Llave_c :s{:errores.add(new ErrorLexSint(4,"","Error sintáctico", sright+1, sleft+1, "Llave de apertura no encontrada"));:} |
     Si Parentesis_a SENTENCIA_BOOLEANA              Llave_a Llave_c :s{:errores.add(new ErrorLexSint(16,"","Error sintáctico", sright+1, sleft+1, "Paréntesis de cierre no encontrado"));:} |
     Si Parentesis_a                    Parentesis_c Llave_a Llave_c :s{:errores.add(new ErrorLexSint(18,"","Error sintáctico", sright+1, sleft+1, "Sentencia/parámetro inválidos o no encontrados"));:} |
@@ -127,7 +126,7 @@ SI ::=
 SENTENCIA_BOOLEANA ::= 
     Op_Booleano | 
     VALOR Op_Relacional VALOR|
-    VALOR Op_Relacional       :s{:errores.add(new ErrorLexSint(19,"","Error sintáctico", sright+1, sleft+1, "Valor no encontrado, posibles esperados: Op_Booleano, identificador, Num_Entero, Texto")));:} |
+    VALOR Op_Relacional       :s{:errores.add(new ErrorLexSint(19,"","Error sintáctico", sright+1, sleft+1, "Valor no encontrado, posibles esperados: Op_Booleano, identificador, Num_Entero, Texto"));:} |
     VALOR               VALOR :s{:errores.add(new ErrorLexSint(20,"","Error sintáctico", sright+1, sleft+1, "Operador relacional inválido o no encontrado"));:} |
           Op_Relacional VALOR :s{:errores.add(new ErrorLexSint(19,"","Error sintáctico", sright+1, sleft+1, "Valor no encontrado, posibles esperados: Op_Booleano, identificador, Num_Entero, Texto"));:}
 ;

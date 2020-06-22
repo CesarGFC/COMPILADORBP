@@ -29,10 +29,12 @@ import javax.swing.text.StyleContext;
  * @author fenix
  */
 public class Compilador extends javax.swing.JFrame{
+    public static ArrayList<Object[]> t;
+    public static ArrayList<Object[]> id;
     private String r = "";
     private DefaultStyledDocument doc;
-    private static DefaultTableModel dtm;
-    public static DefaultTableModel modelo;
+    //private static DefaultTableModel dtm;
+    //public static DefaultTableModel modelo;
     public static ArrayList<ErrorLexSint> listaErrores;
     static ArrayList<String> listaLexemas;
     static String DireccionPath = "";
@@ -55,6 +57,8 @@ public class Compilador extends javax.swing.JFrame{
     }
     
     private void inicializar(){
+        t = new ArrayList();
+        id = new ArrayList();
         listaLexemas = new ArrayList<>();
         listaErrores = new ArrayList<>();
         final StyleContext cont = StyleContext.getDefaultStyleContext();
@@ -200,8 +204,6 @@ public class Compilador extends javax.swing.JFrame{
         lblTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         MENU = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        Tabla = new javax.swing.JTable();
         lineaErrores = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -216,11 +218,16 @@ public class Compilador extends javax.swing.JFrame{
         itemGuardarComo = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         itemSalir = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("BraillePrint");
+        setTitle("FORyCOM");
         setIconImage(getIconImage());
         setMinimumSize(new java.awt.Dimension(1100, 650));
 
@@ -231,7 +238,7 @@ public class Compilador extends javax.swing.JFrame{
         lblLexico.setBackground(new java.awt.Color(230, 248, 254));
         lblLexico.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         lblLexico.setForeground(new java.awt.Color(255, 255, 255));
-        lblLexico.setText("Analizar");
+        lblLexico.setText("Análisis léxico");
         lblLexico.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblLexico.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -253,21 +260,6 @@ public class Compilador extends javax.swing.JFrame{
         MENU.setForeground(new java.awt.Color(18, 37, 54));
         MENU.setRows(5);
         jScrollPane1.setViewportView(MENU);
-
-        Tabla.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        Tabla.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-              "COMPONENTE LEXICO", "LEXEMA"
-            }
-        ));
-        jScrollPane2.setViewportView(Tabla);
-        if (Tabla.getColumnModel().getColumnCount() > 0) {
-            Tabla.getColumnModel().getColumn(0).setResizable(false);
-            Tabla.getColumnModel().getColumn(1).setResizable(false);
-        }
 
         lineaErrores.setBackground(new java.awt.Color(129, 139, 149));
 
@@ -335,48 +327,33 @@ public class Compilador extends javax.swing.JFrame{
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE)
             .addComponent(lineaErrores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1001, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(174, 174, 174)
+                .addComponent(lblLexico)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnLimpiar)
+                .addGap(227, 227, 227)
+                .addComponent(lblTitulo)
+                .addContainerGap(422, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1001, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTitulo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(64, 64, 64)
-                                        .addComponent(btnLimpiar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblLexico)))
-                                .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(129, 129, 129))))))
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblLexico)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLexico)
+                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lineaErrores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -443,6 +420,42 @@ public class Compilador extends javax.swing.JFrame{
         menuArchivo.add(itemSalir);
 
         jMenuBar1.add(menuArchivo);
+
+        jMenu1.setText("Tablas de Simbolos");
+
+        jMenuItem1.setText("Tabla de Tokens");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Tabla de Funciones");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Tabla de Palabras Reservadas");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem4.setText("Tabla de Identificadores");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -524,7 +537,7 @@ public class Compilador extends javax.swing.JFrame{
 
     public void abrirArchivo(){
         Errores.setText("");
-        LimpiarTabla();
+//        LimpiarTabla();
         JFileChooser AbrirA = new JFileChooser();
         AbrirA.setFileFilter(filter);
         int opcion = AbrirA.showOpenDialog(this);
@@ -559,19 +572,19 @@ public class Compilador extends javax.swing.JFrame{
         Errores.setText("");
         DireccionPath = "";
         MENU.setText("");
-        LimpiarTabla();
+        //LimpiarTabla();
         lblTitulo.setText(" ~ Sin título ~ ");
     }//GEN-LAST:event_itemNuevoActionPerformed
         
-    public void LimpiarTabla(){
-        DefaultTableModel dtm = (DefaultTableModel) Tabla.getModel();
+    /*public void LimpiarTabla(){
+        //DefaultTableModel dtm = (DefaultTableModel) Tabla.getModel();
         System.out.println(dtm.getRowCount());
         int cont =dtm.getRowCount()-1;
         while(cont >= 0){
             dtm.removeRow(cont);
             cont--;
         }
-    }
+    }*/
   public void probarsintaxfile() throws FileNotFoundException,IOException{    
     String ST = MENU.getText();
      Sintax s = new Sintax(new Ventanas.LexerCup(new StringReader(ST)));
@@ -589,7 +602,7 @@ public class Compilador extends javax.swing.JFrame{
    public void probarlexerfile() throws FileNotFoundException, IOException{
         int cont = 1;
         Errores.setText("\t-COMPILACION-\n");
-        DefaultTableModel modelo = (DefaultTableModel) Tabla.getModel();
+        //DefaultTableModel modelo = (DefaultTableModel) Tabla.getModel();
         File fichero = new File("fichero.txt");
         PrintWriter writer;
         try{
@@ -615,97 +628,98 @@ public class Compilador extends javax.swing.JFrame{
                  resultado = "Linea: "+ cont + "\n";
                 break;
                 case Num_Entero:
-                    modelo.addRow(new Object[]{token,lexer.Lexeme}); 
+                    t.add(new Object[]{token,lexer.Lexeme}); 
                     break;
                 case Comillas:
-                    modelo.addRow(new Object[]{token,lexer.Lexeme}); 
+                    t.add(new Object[]{token,lexer.Lexeme}); 
                     break;
                 case Texto:
-                    modelo.addRow(new Object[]{token,lexer.Lexeme}); 
+                    t.add(new Object[]{token,lexer.Lexeme}); 
                     break;
                 case Op_Logico:
-                    modelo.addRow(new Object[]{token,lexer.Lexeme}); 
+                    t.add(new Object[]{token,lexer.Lexeme}); 
                     break;  
                 case Op_Relacional:
-                    modelo.addRow(new Object[]{token,lexer.Lexeme}); 
+                    t.add(new Object[]{token,lexer.Lexeme}); 
                     break;
                 case Op_Booleano:
-                    modelo.addRow(new Object[]{token,lexer.Lexeme}); 
+                    t.add(new Object[]{token,lexer.Lexeme}); 
                     break;
                 case Op_Atribucion:
-                    modelo.addRow(new Object[]{token,lexer.Lexeme}); 
+                    t.add(new Object[]{token,lexer.Lexeme}); 
                     break;
                 case Asignacion:
-                    modelo.addRow(new Object[]{token,lexer.Lexeme});
+                    t.add(new Object[]{token,lexer.Lexeme});
                     break;
                 case Adicion:
-                    modelo.addRow(new Object[]{"Op_Aritmetico","+"});
+                    t.add(new Object[]{"Op_Aritmetico","+"});
                     break;
                 case Sustraccion:
-                    modelo.addRow(new Object[]{"Op_Aritmetico","-"});
+                    t.add(new Object[]{"Op_Aritmetico","-"});
                     break;
                 case Producto:
-                    modelo.addRow(new Object[]{"Op_Aritmetico","*"});
+                    t.add(new Object[]{"Op_Aritmetico","*"});
                     break;
                 case Cociente:
-                    modelo.addRow(new Object[]{"Op_Aritmetico","/"});
+                    t.add(new Object[]{"Op_Aritmetico","/"});
                     break;
                 case Parentesis_a:
-                    modelo.addRow(new Object[]{"Signo_Agrupacion","("});
+                    t.add(new Object[]{"Signo_Agrupacion","("});
                     break;
                 case Parentesis_c:
-                    modelo.addRow(new Object[]{"Signo_Agrupacion",")"});
+                    t.add(new Object[]{"Signo_Agrupacion",")"});
                     break;
                 case Corchete_a:
-                    modelo.addRow(new Object[]{"Signo_Agrupacion","["});
+                    t.add(new Object[]{"Signo_Agrupacion","["});
                     break;
                 case Corchete_c:
-                    modelo.addRow(new Object[]{"Signo_Agrupacion","]"});
+                    t.add(new Object[]{"Signo_Agrupacion","]"});
                     break;
                 case Llave_a:
-                    modelo.addRow(new Object[]{"Signo_Agrupacion","{"});
+                    t.add(new Object[]{"Signo_Agrupacion","{"});
                     break;
                 case Llave_c:
-                    modelo.addRow(new Object[]{"Signo_Agrupacion","}"});
+                    t.add(new Object[]{"Signo_Agrupacion","}"});
                     break;
                 case Punto_Coma:
-                    modelo.addRow(new Object[]{"Signo_Puntuacion",";"});
+                    t.add(new Object[]{"Signo_Puntuacion",";"});
                     break;
                 case Coma:
-                    modelo.addRow(new Object[]{"Signo_Puntuacion",lexer.Lexeme});
+                    t.add(new Object[]{"Signo_Puntuacion",lexer.Lexeme});
                     break;
                 case Identificador:
-                    modelo.addRow(new Object[]{"Identificador",lexer.Lexeme}); 
+                    id.add(new Object[] {lexer.Lexeme, lexer.Line()});
+                    t.add(new Object[]{"Identificador",lexer.Lexeme}); 
                     break;
                 case CicloMientras:
-                    modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
+                    t.add(new Object[]{"Palabra reservada",lexer.Lexeme}); 
                     break;
                 case CicloFor:
-                    modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
+                    t.add(new Object[]{"Palabra reservada",lexer.Lexeme}); 
                     break;
                 case Declarar:
-                    modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
+                    t.add(new Object[]{"Palabra reservada",lexer.Lexeme}); 
                     break;
                 case Campotrabajo:
-                    modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
+                    t.add(new Object[]{"Palabra reservada",lexer.Lexeme}); 
                     break;
                 case Si:
-                    modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
+                    t.add(new Object[]{"Palabra reservada",lexer.Lexeme}); 
                     break;
                 case Alter:
-                    modelo.addRow(new Object[]{"Palabra reservada",lexer.Lexeme}); 
+                    t.add(new Object[]{"Palabra reservada",lexer.Lexeme}); 
                     break;
                 case Entero:
-                    modelo.addRow(new Object[]{"Tipo de dato",lexer.Lexeme}); 
+                    t.add(new Object[]{"Tipo de dato",lexer.Lexeme}); 
                     break;
                 case Flotante:
-                    modelo.addRow(new Object[]{"Tipo de dato",lexer.Lexeme}); 
+                    t.add(new Object[]{"Tipo de dato",lexer.Lexeme}); 
                     break;
                 case VarCar:
-                    modelo.addRow(new Object[]{"Tipo de dato",lexer.Lexeme}); 
+                    t.add(new Object[]{"Tipo de dato",lexer.Lexeme}); 
                     break;
                 case func_Ver:case func_ContCarac:case func_Imprimir: case func_ValCad:
-                    modelo.addRow(new Object[]{"Funcion",token});
+                    t.add(new Object[]{"Funcion",token});
                     break; 
                 case ERR_NUM:
                     listaErrores.add(new ErrorLexSint(1,lexer.yytext(),
@@ -727,8 +741,10 @@ public class Compilador extends javax.swing.JFrame{
     
     private void lblLexicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLexicoMouseClicked
         try {
-            DefaultTableModel dtm = (DefaultTableModel) Tabla.getModel();
-            System.out.println(dtm.getRowCount());
+            t.clear();
+            id.clear();
+            //DefaultTableModel dtm = (DefaultTableModel) Tabla.getModel();
+            /*System.out.println(dtm.getRowCount());
             int cont =dtm.getRowCount()-1;
             if(cont>0){
                     while(cont >= 0){
@@ -736,7 +752,7 @@ public class Compilador extends javax.swing.JFrame{
                 cont--;
                 }
             }
-            LimpiarTabla();
+            LimpiarTabla();*/
             lineaErrores.setBackground(new Color(129,139,149));
             listaErrores.clear();
             probarlexerfile();
@@ -757,9 +773,25 @@ public class Compilador extends javax.swing.JFrame{
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         // TODO add your handling code here:
-         LimpiarTabla();
+         //LimpiarTabla();
         Errores.setText(null);
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        new Tablas.Tokens().setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        new Tablas.Funciones().setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        new Tablas.PalabrasReservadas().setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        new Tablas.TablaIdentificadores().setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -799,7 +831,6 @@ public class Compilador extends javax.swing.JFrame{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Errores;
     private javax.swing.JTextArea MENU;
-    private javax.swing.JTable Tabla;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JMenuItem itemAbrir;
     private javax.swing.JMenuItem itemGuardar;
@@ -807,12 +838,16 @@ public class Compilador extends javax.swing.JFrame{
     private javax.swing.JMenuItem itemNuevo;
     private javax.swing.JMenuItem itemSalir;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblLexico;

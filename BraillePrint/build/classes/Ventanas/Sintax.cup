@@ -129,7 +129,7 @@ SENTENCIA_BOOLEANA ::=
     VALOR Op_Relacional       :s{:errores.add(new ErrorLexSint(19,"","Error sintáctico", sright+1, sleft+1, "Valor no encontrado, posibles esperados: Op_Booleano, identificador, Num_Entero, Texto"));:} |
     VALOR               VALOR :s{:errores.add(new ErrorLexSint(20,"","Error sintáctico", sright+1, sleft+1, "Operador relacional inválido o no encontrado"));:} |
           Op_Relacional VALOR :s{:errores.add(new ErrorLexSint(19,"","Error sintáctico", sright+1, sleft+1, "Valor no encontrado, posibles esperados: Op_Booleano, identificador, Num_Entero, Texto"));:}
-;//
+;
 ALTER ::= 
     Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a Llave_c Alter Llave_a Llave_c |
     Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIAS Llave_c Alter Llave_a Llave_c |

@@ -1,22 +1,3 @@
-	##INICIO
 camptrab{
-	##DECLARACION
-  declarar [varcar] lariosyaporfacvor , s = 9;
-	##EJEMPLO DE FUNCION
-      FVer(sasas);
-	##CONDICIONAL
-   si(id==true){ 
-      FVer(sasas);
-    }alter{
-si(true){}alter{}
-}
-
-	##MIENTRAS
-    ciclomientras(true){
-        FImprimir(mensaje1);
-     }
-##FOR
-     ciclofor(entero i=0;i<=9;i++){
-     FValCad{"HOLA ESTE ES UN TEXTO"};
-     
+declarar [varcar] v1 ;0;
 }

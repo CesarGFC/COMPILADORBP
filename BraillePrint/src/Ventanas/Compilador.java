@@ -33,8 +33,7 @@ public class Compilador extends javax.swing.JFrame{
     private DefaultStyledDocument doc;
     private static DefaultTableModel dtm;
     public static DefaultTableModel modelo;
-    private static ArrayList<String> listaErrores;
-    private static ArrayList<String> lista3 = new ArrayList<>();
+    public static ArrayList<ErrorLexSint> listaErrores;
     static ArrayList<String> listaLexemas;
     static String DireccionPath = "";
     private FileNameExtensionFilter filter = new FileNameExtensionFilter("BRAILLE PRINT", "bp");
@@ -57,7 +56,7 @@ public class Compilador extends javax.swing.JFrame{
     
     private void inicializar(){
         listaLexemas = new ArrayList<>();
-        listaErrores = new ArrayList<String>();
+        listaErrores = new ArrayList<>();
         final StyleContext cont = StyleContext.getDefaultStyleContext();
         final AttributeSet red = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.RED);
         final AttributeSet Black = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.BLACK);
@@ -563,15 +562,7 @@ public class Compilador extends javax.swing.JFrame{
         LimpiarTabla();
         lblTitulo.setText(" ~ Sin título ~ ");
     }//GEN-LAST:event_itemNuevoActionPerformed
-
-    public static void setError(String error) {
-        listaErrores.add(error);
-    }
-    
-    public static void tres(String a){
-        lista3.add(a);
-    }
-    
+        
     public void LimpiarTabla(){
         DefaultTableModel dtm = (DefaultTableModel) Tabla.getModel();
         System.out.println(dtm.getRowCount());
@@ -585,13 +576,13 @@ public class Compilador extends javax.swing.JFrame{
     String ST = MENU.getText();
      Sintax s = new Sintax(new Ventanas.LexerCup(new StringReader(ST)));
     try{ 
-        s.parse();
+       s.parse();
        Errores.setText("Análisis realizado correctamente");
        Errores.setForeground(Color.green);
     }catch(Exception ex){
         Symbol sym = s.getS();
-        Errores.append("\nError de sintaxis Linea"+ (sym.right + 1 )+" Columna" + (sym.left + 1)+ ", Texto: \""+ sym.value + "\"");
-        Errores.setForeground(Color.red);
+        //Errores.append("\nError de sintaxis Linea"+ (sym.right + 1 )+" Columna" + (sym.left + 1)+ ", Texto: \""+ sym.value + "\"");
+        //Errores.setForeground(Color.red);
     }
 }
 
@@ -715,21 +706,20 @@ public class Compilador extends javax.swing.JFrame{
                     break;
                 case func_Ver:case func_ContCarac:case func_Imprimir: case func_ValCad:
                     modelo.addRow(new Object[]{"Funcion",token});
-                    break;   
+                    break; 
                 case ERR_NUM:
-                    Errores.append("\nError 02:\tERROR LÉXICO\tLínea: "+lexer.Line()+
-                            "\tColumna: "+lexer.Column()+"\t["+lexer.yytext()+"] No es reconocido como un número válido");
+                    listaErrores.add(new ErrorLexSint(1,lexer.yytext(),
+                    "Error léxico", lexer.Line(), lexer.Column(), "No es reconocido como un número válido"));
                     lineaErrores.setBackground(Color.red);
                     break;  
                 case ERR_ID:
-                    Errores.append("\nError 03:\tERROR LÉXICO\tLínea: "+lexer.Line()+
-                            "\tColumna: "+lexer.Column()+"\t["+lexer.yytext()+"] No es reconocido como un ID válido");
+                    listaErrores.add(new ErrorLexSint(2,lexer.yytext(),
+                    "Error léxico", lexer.Line(), lexer.Column(), "No es reconocido como un ID válido"));
                     lineaErrores.setBackground(Color.red);
                     break;
                 default: 
-                    //modelo.addRow(new Object[]{"Error Simbolo desconocido",lexer.Lexeme});
-                    Errores.append("\nError 01:\tERROR LÉXICO\tLínea: "+lexer.Line()+
-                            "\tColumna: "+lexer.Column()+"\t["+lexer.yytext()+"] No forma parte del lenguaje");
+                    listaErrores.add(new ErrorLexSint(3,lexer.yytext(),
+                    "Error léxico", lexer.Line(), lexer.Column(), "No forma parte del lenguaje BraillePrint"));
                     lineaErrores.setBackground(Color.red);
             }
         }
@@ -744,18 +734,21 @@ public class Compilador extends javax.swing.JFrame{
                     while(cont >= 0){
                 dtm.removeRow(cont);
                 cont--;
-            }
+                }
             }
             LimpiarTabla();
             lineaErrores.setBackground(new Color(129,139,149));
+            listaErrores.clear();
             probarlexerfile();
             probarsintaxfile();
-            if(listaErrores.isEmpty()){
-                for(String error: listaErrores){
-                    Errores.append("\n"+error);
+            if(!listaErrores.isEmpty()){
+            Errores.setForeground(Color.red);
+                for(ErrorLexSint error: listaErrores){
+                    Errores.append("\n"+error.toString());
                 }
             }else{
                 Errores.append("\n-COMPILACIÓN CORRECTA-");
+                Errores.setForeground(Color.green);
             } 
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(Compilador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);

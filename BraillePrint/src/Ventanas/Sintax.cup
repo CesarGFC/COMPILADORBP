@@ -1,7 +1,7 @@
 package Ventanas;
 
 import java_cup.runtime.Symbol;
-
+import java.util.ArrayList;
 parser code
 {:
     private Symbol s;
@@ -13,29 +13,42 @@ parser code
     public Symbol getS(){
         return this.s;
 }
+
+  public void unrecovered_syntax_error(Symbol cur_token)
+    {
+        errores.add(new ErrorLexSint("Error sintáctico", s.right+1, "Sintaxis incorrecta, verificar la documentación del lenguaje BraillePrint"));
+    }
+    public ArrayList<ErrorLexSint> errores = Compilador.listaErrores;
 :};
 
+
 terminal
-    Entero, VarCar, Flotante, Texto,
+    Parentesis_a, Parentesis_c, Llave_a, Llave_c, Corchete_a, Corchete_c, Punto_Coma, Coma, Comillas,
+    func_Ver, func_ContCarac, func_ValCad, func_Imprimir, ERROR, ERR_ID, ERR_NUM,
+    Op_Logico, Op_Relacional, Op_Booleano, Op_Atribucion, Asignacion,
     Si, Alter, CicloMientras, CicloFor, Declarar, Campotrabajo,
     Adicion, Sustraccion, Producto, Cociente, 
-    Parentesis_a, Parentesis_c, Llave_a, Llave_c, Corchete_a, Corchete_c, Punto_Coma, Coma, Comillas,
-    Op_Logico, Op_Relacional, Op_Booleano, Op_Atribucion, Asignacion, 
-    Num_Entero, Identificador,
-    func_Ver, func_ContCarac, func_ValCad, func_Imprimir, ERROR, ERR_ID, ERR_NUM
+    Entero, VarCar, Flotante, Texto,
+    Num_Entero, Identificador
+    
 ;
 non terminal 
-    INICIO, DECLARACION, DECLARACION_FOR, SI, FUNCION, TDATO,VALOR, ALTER,
-    CICLOMIENTRAS, CICLOFOR, SENTENCIA_BOOLEANA, SENTENCIA_FOR, SENTENCIAS, CUERPO
+    INICIO, DECLARACION, DECLARACION_FOR, SI, FUNCION, TDATO,VALOR, ALTER, CICLOMIENTRAS, CICLOFOR, SENTENCIA_BOOLEANA, SENTENCIA_FOR, SENTENCIAS, CUERPO
 ;
 start with INICIO
 ;
 INICIO ::= 
-    Campotrabajo CUERPO
+    Campotrabajo CUERPO |
+    Campotrabajo        :s{:errores.add(new ErrorLexSint(1,"","Error sintáctico", sright+1, sleft+1, "Creación de cuerpo de instrucción no definida"));:} |
+                 CUERPO :s{:errores.add(new ErrorLexSint(2,"","Error sintáctico", sright+1, sleft+1, "Sección de inicialización incorrecta, palabra reservada camptrab no encontrada"));:}
 ;
 CUERPO ::=
     Llave_a Llave_c |
-    Llave_a SENTENCIAS Llave_c
+    Llave_a         :s{:errores.add(new ErrorLexSint(3,"","Error sintáctico", sright+1, sleft+1, "Llave de cierre no encontrada"));:} |
+            Llave_c :s{:errores.add(new ErrorLexSint(4,"","Error sintáctico", sright+1, sleft+1, "Llave de apertura no encontrada"));:} |
+    Llave_a SENTENCIAS Llave_c |
+    Llave_a SENTENCIAS         :s{:errores.add(new ErrorLexSint(3,"","Error sintáctico", sright+1, sleft+1, "Llave de cierre no encontrada"));:} |
+            SENTENCIAS Llave_c :s{:errores.add(new ErrorLexSint(4,"","Error sintáctico", sright+1, sleft+1, "Llave de apertura no encontrada"));:}
 ;
 VALOR::= 
  Num_Entero | Texto | Op_Booleano | Identificador
@@ -52,28 +65,71 @@ FUNCION |
 SENTENCIAS CICLOMIENTRAS |
 CICLOMIENTRAS |
 SENTENCIAS CICLOFOR |
-CICLOFOR
+CICLOFOR 
 ;
-DECLARACION ::=  
+DECLARACION ::= 
+    Declarar Corchete_a TDATO Corchete_c Identificador Punto_Coma |
+    Declarar Corchete_a TDATO Corchete_c Identificador            :s{:errores.add(new ErrorLexSint(5,"","Error sintáctico", sright+1, sleft+1, "Finalizacion de sentencia incorrecta, ';' no encontrado"));:} |
+    Declarar Corchete_a TDATO Corchete_c               Punto_Coma :s{:errores.add(new ErrorLexSint(13,"","Error sintáctico", sright+1, sleft+1, "Declaración incorrecta, identificador no encontrado"));:} |
+    Declarar Corchete_a TDATO            Identificador Punto_Coma :s{:errores.add(new ErrorLexSint(9,"","Error sintáctico", sright+1, sleft+1, "Declaración incorrecta, corchete de cierre no encontrado"));:} |
+    Declarar Corchete_a       Corchete_c Identificador Punto_Coma :s{:errores.add(new ErrorLexSint(11,"","Error sintáctico", sright+1, sleft+1, "Declaración incorrecta, tipo de dato no encontrado"));:} | 
+    Declarar            TDATO Corchete_c Identificador Punto_Coma :s{:errores.add(new ErrorLexSint(10,"","Error sintáctico", sright+1, sleft+1, "Declaración incorrecta, corchete de apertura no encontrado"));:} |
+             Corchete_a TDATO Corchete_c Identificador Punto_Coma :s{:errores.add(new ErrorLexSint(12,"","Error sintáctico", sright+1, sleft+1, "Declaración incorrecta, palabra reservada 'declarar' no encontrada"));:} |
     Declarar Corchete_a TDATO Corchete_c Identificador Asignacion VALOR Punto_Coma |
-    Declarar Corchete_a TDATO Corchete_c Identificador Coma Identificador Asignacion VALOR Punto_Coma
+    Declarar Corchete_a TDATO Corchete_c Identificador Asignacion VALOR            :s{:errores.add(new ErrorLexSint(5,"","Error sintáctico", sright+1, sleft+1, "Finalizacion de sentencia incorrecta, ';' no encontrado"));:} |
+    Declarar Corchete_a TDATO Corchete_c Identificador Asignacion       Punto_Coma :s{:errores.add(new ErrorLexSint(6,"","Error sintáctico", sright+1, sleft+1, "Asignación incorrecta, valor no encontrado"));:} |
+    Declarar Corchete_a TDATO Corchete_c Identificador            VALOR Punto_Coma :s{:errores.add(new ErrorLexSint(7,"","Error sintáctico", sright+1, sleft+1, "Asignación incorrecta, operador de asignación no encontrado"));:} |
+    Declarar Corchete_a TDATO Corchete_c               Asignacion VALOR Punto_Coma :s{:errores.add(new ErrorLexSint(8,"","Error sintáctico", sright+1, sleft+1, "Asignación incorrecta, identificador no encontrado"));:} |
+    Declarar Corchete_a TDATO            Identificador Asignacion VALOR Punto_Coma :s{:errores.add(new ErrorLexSint(9,"","Error sintáctico", sright+1, sleft+1, "Declaración incorrecta, corchete de cierre no encontrado"));:} |
+    Declarar Corchete_a       Corchete_c Identificador Asignacion VALOR Punto_Coma :s{:errores.add(new ErrorLexSint(11,"","Error sintáctico", sright+1, sleft+1, "Declaración incorrecta, tipo de dato no encontrado"));:} |    
+    Declarar            TDATO Corchete_c Identificador Asignacion VALOR Punto_Coma :s{:errores.add(new ErrorLexSint(10,"","Error sintáctico", sright+1, sleft+1, "Declaración incorrecta, corchete de apertura no encontrado"));:} |
+             Corchete_a TDATO Corchete_c Identificador Asignacion VALOR Punto_Coma :s{:errores.add(new ErrorLexSint(12,"","Error sintáctico", sright+1, sleft+1, "Declaración incorrecta, palabra reservada 'declarar' no encontrada"));:}
 ;
 TDATO::= 
     Entero|Flotante|VarCar|Num_Entero
 ;
 FUNCION::=
-    func_ValCad Llave_a Texto Llave_c Punto_Coma |
+    func_ValCad Parentesis_a Texto Parentesis_c Punto_Coma |
+    func_ValCad Parentesis_a Texto Parentesis_c            :s{:errores.add(new ErrorLexSint(5,"","Error sintáctico", sright+1, sleft+1, "Finalizacion de sentencia incorrecta, ';' no encontrado"));:} |
+    func_ValCad Parentesis_a Texto              Punto_Coma :s{:errores.add(new ErrorLexSint(16,"","Error sintáctico", sright+1, sleft+1, "Paréntesis de cierre no encontrado"));:} |
+    func_ValCad Parentesis_a       Parentesis_c Punto_Coma :s{:errores.add(new ErrorLexSint(14,"","Error sintáctico", sright+1, sleft+1, "Parámetro inválido o no encontrado"));:} |
+    func_ValCad              Texto Parentesis_c Punto_Coma :s{:errores.add(new ErrorLexSint(17,"","Error sintáctico", sright+1, sleft+1, "Paréntesis de apertura no encontrado"));:} |
+                Parentesis_a Texto Parentesis_c Punto_Coma :s{:errores.add(new ErrorLexSint(15,"","Error sintáctico", sright+1, sleft+1, "Formato inválido de posible función, nombre incorrecto o no encontrado"));:} |
     func_Ver Parentesis_a Identificador Parentesis_c Punto_Coma|
+    func_Ver Parentesis_a Identificador Parentesis_c            :s{:errores.add(new ErrorLexSint(5,"","Error sintáctico", sright+1, sleft+1, "Finalizacion de sentencia incorrecta, ';' no encontrado"));:} |    
+    func_Ver Parentesis_a Identificador              Punto_Coma :s{:errores.add(new ErrorLexSint(16,"","Error sintáctico", sright+1, sleft+1, "Paréntesis de cierre no encontrado"));:} |
+    func_Ver Parentesis_a               Parentesis_c Punto_Coma :s{:errores.add(new ErrorLexSint(14,"","Error sintáctico", sright+1, sleft+1, "Parámetro inválido o no encontrado"));:} |
+    func_Ver              Identificador Parentesis_c Punto_Coma :s{:errores.add(new ErrorLexSint(17,"","Error sintáctico", sright+1, sleft+1, "Paréntesis de apertura no encontrado"));:} |
     func_ContCarac Parentesis_a Identificador Parentesis_c Punto_Coma|
-    func_Imprimir Parentesis_a Identificador Parentesis_c Punto_Coma
+    func_ContCarac Parentesis_a Identificador Parentesis_c            :s{:errores.add(new ErrorLexSint(5,"","Error sintáctico", sright+1, sleft+1, "Finalizacion de sentencia incorrecta, ';' no encontrado"));:} |    
+    func_ContCarac Parentesis_a Identificador              Punto_Coma :s{:errores.add(new ErrorLexSint(16,"","Error sintáctico", sright+1, sleft+1, "Paréntesis de cierre no encontrado"));:} |
+    func_ContCarac Parentesis_a               Parentesis_c Punto_Coma :s{:errores.add(new ErrorLexSint(14,"","Error sintáctico", sright+1, sleft+1, "Parámetro inválido o no encontrado"));:} |
+    func_ContCarac              Identificador Parentesis_c Punto_Coma :s{:errores.add(new ErrorLexSint(17,"","Error sintáctico", sright+1, sleft+1, "Paréntesis de apertura no encontrado"));:} |                  
+    func_Imprimir Parentesis_a Identificador Parentesis_c Punto_Coma|
+    func_Imprimir Parentesis_a Identificador Parentesis_c            :s{:errores.add(new ErrorLexSint(5,"","Error sintáctico", sright+1, sleft+1, "Finalizacion de sentencia incorrecta, ';' no encontrado"));:} |    
+    func_Imprimir Parentesis_a Identificador              Punto_Coma :s{:errores.add(new ErrorLexSint(16,"","Error sintáctico", sright+1, sleft+1, "Paréntesis de cierre no encontrado"));:} |
+    func_Imprimir Parentesis_a               Parentesis_c Punto_Coma :s{:errores.add(new ErrorLexSint(14,"","Error sintáctico", sright+1, sleft+1, "Parámetro inválido o no encontrado"));:} |
+    func_Imprimir              Identificador Parentesis_c Punto_Coma :s{:errores.add(new ErrorLexSint(17,"","Error sintáctico", sright+1, sleft+1, "Paréntesis de apertura no encontrado"));:}                
 ;
 SI ::= 
     Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a Llave_c |
-    Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIAS Llave_c 
+    Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a         :s{:errores.add(new ErrorLexSint(3,"","Error sintáctico", sright+1, sleft+1, "Llave de cierre no encontrada"));:} 
+    Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c         Llave_c :s{:errores.add(new ErrorLexSint(4,"","Error sintáctico", sright+1, sleft+1, "Llave de apertura no encontrada"));:} |
+    Si Parentesis_a SENTENCIA_BOOLEANA              Llave_a Llave_c :s{:errores.add(new ErrorLexSint(16,"","Error sintáctico", sright+1, sleft+1, "Paréntesis de cierre no encontrado"));:} |
+    Si Parentesis_a                    Parentesis_c Llave_a Llave_c :s{:errores.add(new ErrorLexSint(18,"","Error sintáctico", sright+1, sleft+1, "Sentencia/parámetro inválidos o no encontrados"));:} |
+    Si              SENTENCIA_BOOLEANA Parentesis_c Llave_a Llave_c :s{:errores.add(new ErrorLexSint(17,"","Error sintáctico", sright+1, sleft+1, "Paréntesis de apertura no encontrado"));:} |
+    Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIAS Llave_c|
+    Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c         SENTENCIAS Llave_c :s{:errores.add(new ErrorLexSint(4,"","Error sintáctico", sright+1, sleft+1, "Llave de apertura no encontrada"));:} |
+    Si Parentesis_a SENTENCIA_BOOLEANA              Llave_a SENTENCIAS Llave_c :s{:errores.add(new ErrorLexSint(16,"","Error sintáctico", sright+1, sleft+1, "Paréntesis de cierre no encontrado"));:} |
+    Si Parentesis_a                    Parentesis_c Llave_a SENTENCIAS Llave_c :s{:errores.add(new ErrorLexSint(18,"","Error sintáctico", sright+1, sleft+1, "Sentencia/parámetro inválidos o no encontrados"));:} |
+    Si              SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIAS Llave_c :s{:errores.add(new ErrorLexSint(17,"","Error sintáctico", sright+1, sleft+1, "Paréntesis de apertura no encontrado"));:}    
 ;
 SENTENCIA_BOOLEANA ::= 
     Op_Booleano | 
-    VALOR Op_Relacional VALOR
+    VALOR Op_Relacional VALOR|
+    VALOR Op_Relacional       :s{:errores.add(new ErrorLexSint(19,"","Error sintáctico", sright+1, sleft+1, "Valor no encontrado, posibles esperados: Op_Booleano, identificador, Num_Entero, Texto")));:} |
+    VALOR               VALOR :s{:errores.add(new ErrorLexSint(20,"","Error sintáctico", sright+1, sleft+1, "Operador relacional inválido o no encontrado"));:} |
+          Op_Relacional VALOR :s{:errores.add(new ErrorLexSint(19,"","Error sintáctico", sright+1, sleft+1, "Valor no encontrado, posibles esperados: Op_Booleano, identificador, Num_Entero, Texto"));:}
 ;
 ALTER ::= 
     Si Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a Llave_c Alter Llave_a Llave_c |

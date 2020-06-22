@@ -8,52 +8,69 @@ package Ventanas;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int Producto = 14;
-  public static final int VarCar = 3;
-  public static final int Entero = 2;
-  public static final int Coma = 23;
-  public static final int Llave_c = 19;
-  public static final int CicloFor = 9;
-  public static final int Llave_a = 18;
-  public static final int Adicion = 12;
-  public static final int Op_Logico = 25;
-  public static final int func_Imprimir = 35;
-  public static final int ERR_ID = 37;
-  public static final int Asignacion = 29;
-  public static final int Corchete_c = 21;
-  public static final int Corchete_a = 20;
-  public static final int Campotrabajo = 11;
-  public static final int CicloMientras = 8;
-  public static final int Op_Relacional = 26;
-  public static final int func_ValCad = 34;
-  public static final int Flotante = 4;
-  public static final int Parentesis_c = 17;
-  public static final int ERR_NUM = 38;
-  public static final int Parentesis_a = 16;
+  public static final int Producto = 31;
+  public static final int VarCar = 34;
+  public static final int Entero = 33;
+  public static final int Coma = 9;
+  public static final int Llave_c = 5;
+  public static final int CicloFor = 26;
+  public static final int Llave_a = 4;
+  public static final int Adicion = 29;
+  public static final int Op_Logico = 18;
+  public static final int func_Imprimir = 14;
+  public static final int ERR_ID = 16;
+  public static final int Asignacion = 22;
+  public static final int Corchete_c = 7;
+  public static final int Corchete_a = 6;
+  public static final int Campotrabajo = 28;
+  public static final int CicloMientras = 25;
+  public static final int Op_Relacional = 19;
+  public static final int func_ValCad = 13;
+  public static final int Flotante = 35;
+  public static final int Parentesis_c = 3;
+  public static final int ERR_NUM = 17;
+  public static final int Parentesis_a = 2;
   public static final int EOF = 0;
   public static final int error = 1;
-  public static final int Texto = 5;
-  public static final int Op_Booleano = 27;
-  public static final int func_ContCarac = 33;
-  public static final int ERROR = 36;
-  public static final int Cociente = 15;
-  public static final int Punto_Coma = 22;
-  public static final int Identificador = 31;
-  public static final int Si = 6;
-  public static final int func_Ver = 32;
-  public static final int Declarar = 10;
-  public static final int Num_Entero = 30;
-  public static final int Alter = 7;
-  public static final int Sustraccion = 13;
-  public static final int Op_Atribucion = 28;
-  public static final int Comillas = 24;
+  public static final int Texto = 36;
+  public static final int Op_Booleano = 20;
+  public static final int func_ContCarac = 12;
+  public static final int ERROR = 15;
+  public static final int Cociente = 32;
+  public static final int Punto_Coma = 8;
+  public static final int Identificador = 38;
+  public static final int Si = 23;
+  public static final int func_Ver = 11;
+  public static final int Num_Entero = 37;
+  public static final int Declarar = 27;
+  public static final int Alter = 24;
+  public static final int Sustraccion = 30;
+  public static final int Op_Atribucion = 21;
+  public static final int Comillas = 10;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
-  "Entero",
-  "VarCar",
-  "Flotante",
-  "Texto",
+  "Parentesis_a",
+  "Parentesis_c",
+  "Llave_a",
+  "Llave_c",
+  "Corchete_a",
+  "Corchete_c",
+  "Punto_Coma",
+  "Coma",
+  "Comillas",
+  "func_Ver",
+  "func_ContCarac",
+  "func_ValCad",
+  "func_Imprimir",
+  "ERROR",
+  "ERR_ID",
+  "ERR_NUM",
+  "Op_Logico",
+  "Op_Relacional",
+  "Op_Booleano",
+  "Op_Atribucion",
+  "Asignacion",
   "Si",
   "Alter",
   "CicloMientras",
@@ -64,29 +81,12 @@ public class sym {
   "Sustraccion",
   "Producto",
   "Cociente",
-  "Parentesis_a",
-  "Parentesis_c",
-  "Llave_a",
-  "Llave_c",
-  "Corchete_a",
-  "Corchete_c",
-  "Punto_Coma",
-  "Coma",
-  "Comillas",
-  "Op_Logico",
-  "Op_Relacional",
-  "Op_Booleano",
-  "Op_Atribucion",
-  "Asignacion",
+  "Entero",
+  "VarCar",
+  "Flotante",
+  "Texto",
   "Num_Entero",
-  "Identificador",
-  "func_Ver",
-  "func_ContCarac",
-  "func_ValCad",
-  "func_Imprimir",
-  "ERROR",
-  "ERR_ID",
-  "ERR_NUM"
+  "Identificador"
   };
 }
 

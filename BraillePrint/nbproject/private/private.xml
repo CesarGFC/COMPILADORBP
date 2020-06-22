@@ -3,12 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/cesar/Desktop/CompiladorBP/BraillePrint/src/Ventanas/LexerCup.flex</file>
             <file>file:/C:/Users/cesar/Desktop/CompiladorBP/BraillePrint/src/Ventanas/Principal.java</file>
             <file>file:/C:/Users/cesar/Desktop/CompiladorBP/BraillePrint/src/Ventanas/Compilador.java</file>
             <file>file:/C:/Users/cesar/Desktop/CompiladorBP/BraillePrint/src/Ventanas/Sintax.cup</file>
-            <file>file:/C:/Users/cesar/Desktop/CompiladorBP/BraillePrint/src/Ventanas/Token.java</file>
-            <file>file:/C:/Users/cesar/Desktop/CompiladorBP/BraillePrint/src/Ventanas/Lexer.flex</file>
         </group>
     </open-files>
 </project-private>

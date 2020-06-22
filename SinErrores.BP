@@ -16,7 +16,6 @@ camptrab{
         		FImprimir(mensaje1);
    	       }
 	}
-
   	si(cadena == false){
 		##CICLOFOR
      		ciclofor(entero i=0;i<=9;i++){

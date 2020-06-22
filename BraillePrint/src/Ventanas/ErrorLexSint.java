@@ -44,7 +44,7 @@ public class ErrorLexSint {
     @Override
     public String toString(){
         if (lexema != null)
-            return tipo + " " + nError +" en la línea "+linea+" columna "+columna+": "+desc+" => "+lexema;
+            return tipo + " " + nError +" en la línea "+linea+": "+desc+" => "+lexema;
         else
             return tipo+" en la línea "+linea+" "+desc;
     }

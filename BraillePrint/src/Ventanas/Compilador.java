@@ -238,7 +238,7 @@ public class Compilador extends javax.swing.JFrame{
         lblLexico.setBackground(new java.awt.Color(230, 248, 254));
         lblLexico.setFont(new java.awt.Font("Ubuntu", 1, 14)); // NOI18N
         lblLexico.setForeground(new java.awt.Color(255, 255, 255));
-        lblLexico.setText("Análisis léxico");
+        lblLexico.setText("Analizar");
         lblLexico.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lblLexico.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -590,6 +590,7 @@ public class Compilador extends javax.swing.JFrame{
      Sintax s = new Sintax(new Ventanas.LexerCup(new StringReader(ST)));
     try{ 
        s.parse();
+       Errores.setText("");
        Errores.setText("Análisis realizado correctamente");
        Errores.setForeground(Color.green);
     }catch(Exception ex){
@@ -623,7 +624,7 @@ private void quicksortError(ArrayList<ErrorLexSint> E, int izq, int der) {
 
    public void probarlexerfile() throws FileNotFoundException, IOException{
         int cont = 1;
-        Errores.setText("\t-COMPILACION-\n");
+        //Errores.setText("\t-COMPILACION-\n");
         //DefaultTableModel modelo = (DefaultTableModel) Tabla.getModel();
         File fichero = new File("fichero.txt");
         PrintWriter writer;
@@ -780,13 +781,16 @@ private void quicksortError(ArrayList<ErrorLexSint> E, int izq, int der) {
             probarlexerfile();
             probarsintaxfile();
             if(!listaErrores.isEmpty()){
-            quicksortError(listaErrores, 0, listaErrores.size() - 1);
-            Errores.setForeground(Color.red);
+                Errores.setText("");
+                Errores.setText("Análisis realizado correctamente");
+                quicksortError(listaErrores, 0, listaErrores.size() - 1);
+                Errores.setForeground(Color.red);
+                System.out.println(listaErrores.size());
                 for(ErrorLexSint error: listaErrores){
                     Errores.append("\n"+error.toString());
                 }
             }else{
-                Errores.append("\n-COMPILACIÓN CORRECTA-");
+                Errores.setText("\n-COMPILACIÓN CORRECTA-");
                 Errores.setForeground(Color.blue);
             } 
         } catch (IOException ex) {

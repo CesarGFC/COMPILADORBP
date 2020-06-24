@@ -29,7 +29,7 @@ docComent = "/*"{coment}"*/"
 {espacio} {/*Ignore*/}
 
 /* Comentarios */
-"##".* {/*Ignore*/}
+"#".* {/*Ignore*/}
 {docComent} {/*Ignore*/}
 
 /* Comillas */

@@ -1,25 +1,31 @@
-##CESAR GILBERTO FLORES CARRILLO, este es un comentario
-##Para iniciar, se necesita la palabra reservada camptrab y llaves de inicio y cierre
+#CESAR GILBERTO FLORES CARRILLO
+#Para iniciar, se necesita la palabra reservada camptrab seguidas de llaves de inicio y cierre
 camptrab{
-	##DECLARACION de variables con asignacion 
-  	declarar [flot] numero  = 9
-	declarar [vacar] hola =0  mundo;
-	##EJEMPLO DE FUNCIONES , se le pasan parámetros de identificador o de tipo texto, es decir "ESTE ES UN TEXTO"
-     	 FVer(msj1);{}
+
+	/*Una vez estando dentro del cuerpo se
+	empiezan a poner las instrucciones, 
+	de no hacerse así marcará un error*/
+#DECLARACION de variables con asignacion 
+	declarar [varcar] pedro = carta1;
+#EJEMPLO DE FUNCIONES , se le pasan parámetros de identificador o de tipo texto, es decir "ESTE ES UN TEXTO"
+	FVer(msj1);
 	FValCad("Es para una persona invidente, se debe traducir a Braille");
-	##CONDICIONAL
-   	si(id=3=aatrue){ 
-      	FVer(mensaje2);
+#CONDICIONAL
+	declarar [flot] numero = 9;
+   	si(id==true){ 
+      		FVer(mensaje2);
     	}
-	alter+{	##CICLOMIENTRAS
+	alter{	
+	##CICLOMIENTRAS
   		ciclomientras(true){
         		FImprimir(mensaje1);
-   	       }
+   	       	}
 	}
-  	s(cadena == fase){
-		##CICLOFOR
-     		ciclofor(enero i=0;i=9;i++){
-     		FValCad(HOLA ESTE ES UN TEXTO");
-    	 };
-	}}
+  	si(cadena == false){
+	##CICLOFOR
+     		ciclofor(entero i=0;i<=9;i++){
+     		FValCad("HOLA ESTE ES UN TEXTO");
+    	 	}
+	}
 }
+
